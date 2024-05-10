@@ -5,7 +5,7 @@ kaboom({
   fullscreen: true,
   scale: 2,
   debug: true,
-  clearColor: [0, 0, 0, 1],
+  clearColor: [2, 35, 0, 0], // 0, 0, 0, 1 es negro
 })
 
 // Speed identifiers
@@ -20,12 +20,21 @@ const ENEMY_SPEED = 20
 
 let isJumping = true
 
+//loadSprite('mario', 'img\Designer__37_-removebg-preview.png')
+
 loadRoot('https://i.imgur.com/')
+
+loadSprite('mario', 'OGCMNef.png')
+//loadSprite('block', 'LwbZMrU.png')
+
+
 loadSprite('coin', 'wbKxhcd.png')
 loadSprite('evil-shroom', 'KPO3fR9.png')
-loadSprite('brick', 'pogC9x5.png')
+//loadSprite('brick', 'pogC9x5.png')
+//loadSprite('brick', 'R2ZpZm0.png')
 loadSprite('block', 'M6rwarW.png')
-loadSprite('mario', 'Wb1qfhK.png')
+//loadSprite('mario', 'Wb1qfhK.png')
+
 loadSprite('mushroom', '0wMd92p.png')
 loadSprite('surprise', 'gesQ1KP.png')
 loadSprite('unboxed', 'bdrLpi6.png')
@@ -56,7 +65,7 @@ scene("game", ({ level, score }) => {
       '                                      ',
       '                            -+        ',
       '                    ^   ^   ()        ',
-      '==============================   =====',
+      '=======  =====================   =====',
     ],
     [
       '£                                       £',
@@ -64,7 +73,7 @@ scene("game", ({ level, score }) => {
       '£                                       £',
       '£                                       £',
       '£                                       £',
-      '£        @@@@@@              x x        £',
+      '£        @@*@@@              x x        £',
       '£                          x x x        £',
       '£                        x x x x  x   -+£',
       '£               z   z  x x x x x  x   ()£',
@@ -140,7 +149,7 @@ scene("game", ({ level, score }) => {
   const player = add([
     sprite('mario'), solid(),
     pos(30, 0),
-    body(),
+    body(), //gravedad
     big(),
     origin('bot')
   ])
@@ -161,11 +170,49 @@ scene("game", ({ level, score }) => {
       gameLevel.spawn('}', obj.gridPos.sub(0,0))
     }
   })
+//
 
-  player.collides('mushroom', (m) => {
-    destroy(m)
-    player.biggify(6)
-  })
+player.collides('mushroom', (m) => {
+  destroy(m)
+  // Generar tres números aleatorios para seleccionar tres preguntas distintas
+  const questionIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * questions.length))
+  // Mostrar las tres preguntas y opciones al jugador
+  const answers = questionIndices.map(index => confirm(questions[index].text))
+  // Verificar las respuestas del jugador
+  const allCorrect = answers.every((answer, index) => answer === questions[questionIndices[index]].answer)
+  if (allCorrect) {
+      alert("¡Todas las respuestas son correctas!")
+      player.biggify(6)
+  } else {
+      alert("¡Al menos una respuesta es incorrecta!")
+  }
+})
+
+// Definir las preguntas y respuestas
+const questions = [
+  {
+      text: "¿Cuánto es 2 + 2?",
+      answer: true // La respuesta es verdadera
+  },
+  {
+      text: "¿Cuál es la capital de Francia?",
+      answer: false // La respuesta es falsa
+  },
+  {
+      text: "¿Cuál es el animal más rápido del mundo?",
+      answer: true // La respuesta es verdadera
+  },
+  {
+      text: "¿Quién escribió 'Don Quijote de la Mancha'?",
+      answer: true // La respuesta es verdadera
+  },
+  // Agrega más preguntas según tus necesidades
+]
+  //
+ // player.collides('mushroom', (m) => {
+  //  destroy(m)
+  //  player.biggify(6)
+ // })
 
   player.collides('coin', (c) => {
     destroy(c)
