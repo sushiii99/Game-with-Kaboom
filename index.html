@@ -1,25 +1,45 @@
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <title>Mario Kaboom.js</title>
     <link rel="stylesheet" href="style.css">
     <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-      }
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        #question-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
+        .option-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="question-container">
-      <div id="question"></div>
-      <button class="option-btn" id="optionA"></button>
-      <button class="option-btn" id="optionB"></button>
-      <button class="option-btn" id="optionC"></button>
-      <button class="option-btn" id="optionD"></button>
+        <div id="question"></div>
+        <button class="option-btn" id="optionA"></button>
+        <button class="option-btn" id="optionB"></button>
+        <button class="option-btn" id="optionC"></button>
+        <button class="option-btn" id="optionD"></button>
     </div>
-
     <script src="https://kaboomjs.com/lib/0.5.0/kaboom.js"></script>
     <script src="game.js"></script>
-  </body>
+</body>
 </html>
+
