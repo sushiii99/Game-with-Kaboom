@@ -5,6 +5,7 @@ body {
 #question-container {
     text-align: center;
     margin-top: 100px;
+    border-radius: 8px;
 }
 
 #question {
@@ -17,8 +18,8 @@ body {
     width: 200px;
     height: 40px;
     margin: 10px auto;
-    background-color: #3498db;
-    color: #c37fdc;
+    background-color: #8626d1;
+    color: #f8f8f8;
     font-size: 16px;
     border: none;
     border-radius: 5px;

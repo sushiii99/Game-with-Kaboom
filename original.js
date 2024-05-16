@@ -162,6 +162,9 @@ kaboom({
       }
     })
   
+
+
+    
     player.collides('mushroom', (m) => {
       destroy(m)
       player.biggify(6)

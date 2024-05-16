@@ -200,6 +200,12 @@ scene("game", ({ level, score }) => {
     }
   })
 
+
+
+// AQUI EMPIEZA CODIGO NUEVO,en codigo nuevo sigue player.colide
+
+
+
   // Variables globales
   let currentQuestionIndex = 0;
   let questionVisible = false;
@@ -229,11 +235,16 @@ scene("game", ({ level, score }) => {
     document.getElementById('question-container').style.display = 'none';
   }
 
+// CODIGO ORIGINAL EQUIVALENTE ES:
+// player.collides('mushroom', (m) => {
+//   destroy(m)
+//   player.biggify(6)
+// })
   // Verificar la respuesta
   function checkAnswer(option) {
     const question = questions[currentQuestionIndex];
     if (option === question.correcta) {
-      player.biggify(10); // Mario se hace grande por 10 segundos
+      player.biggify(8); // Mario se hace grande por 10 segundos
     }
     hideQuestion();
   }
@@ -248,6 +259,19 @@ scene("game", ({ level, score }) => {
     destroy(m);
     showQuestion();
   });
+
+
+
+// DE AQUI PARA ABAJO ES IGUAL A LA ORIGINAL
+  player.collides('coin', (c) => {
+    destroy(c);
+    scoreLabel.value++;
+    scoreLabel.text = scoreLabel.value;
+  })
+
+  action('dangerous', (d) => {
+    d.move(-ENEMY_SPEED, 0);
+  })
 
   player.collides('dangerous', (d) => {
     if (isJumping) {
@@ -264,11 +288,16 @@ scene("game", ({ level, score }) => {
     }
   })
 
-  player.collides('coin', (c) => {
-    destroy(c);
-    scoreLabel.value++;
-    scoreLabel.text = scoreLabel.value;
+  // ESTA FUNCION era de la original, no la vi aqui asi que la copie
+  player.collides('pipe', () => {
+    keyPress('down', () => {
+      go('game', {
+        level: (level + 1) % maps.length,
+        score: scoreLabel.value
+      })
+    })
   })
+
 
   keyDown('left', () => {
     player.move(-MOVE_SPEED, 0);
@@ -289,10 +318,6 @@ scene("game", ({ level, score }) => {
       isJumping = true;
       player.jump(CURRENT_JUMP_FORCE);
     }
-  })
-
-  action('dangerous', (d) => {
-    d.move(-ENEMY_SPEED, 0);
   })
 
   scene('lose', ({ score }) => {
