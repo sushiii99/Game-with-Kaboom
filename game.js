@@ -5,7 +5,7 @@ kaboom({
   fullscreen: true,
   scale: 2,
   debug: true,
-  clearColor: [2, 35, 0, 0], // 0, 0, 0, 1 es negro
+  clearColor: [0, 0, 0, 1],
 })
 
 // Speed identifiers
@@ -20,21 +20,12 @@ const ENEMY_SPEED = 20
 
 let isJumping = true
 
-//loadSprite('mario', 'img\Designer__37_-removebg-preview.png')
-
 loadRoot('https://i.imgur.com/')
-
-loadSprite('mario', 'OGCMNef.png')
-//loadSprite('block', 'LwbZMrU.png')
-
-
 loadSprite('coin', 'wbKxhcd.png')
 loadSprite('evil-shroom', 'KPO3fR9.png')
-//loadSprite('brick', 'pogC9x5.png')
-//loadSprite('brick', 'R2ZpZm0.png')
+loadSprite('brick', 'pogC9x5.png')
 loadSprite('block', 'M6rwarW.png')
-//loadSprite('mario', 'Wb1qfhK.png')
-
+loadSprite('mario', 'Wb1qfhK.png')
 loadSprite('mushroom', '0wMd92p.png')
 loadSprite('surprise', 'gesQ1KP.png')
 loadSprite('unboxed', 'bdrLpi6.png')
@@ -49,7 +40,50 @@ loadSprite('blue-steel', 'gqVoI2b.png')
 loadSprite('blue-evil-shroom', 'SvV4ueD.png')
 loadSprite('blue-surprise', 'RMqCc1G.png')
 
-
+//
+const questions = [
+  {
+      id:1,
+      categoria:"general",
+      titulo:"¿Cuál es el planeta más grande de nuestro sistema solar?",
+      opcionA:"Tierra",
+      opcionB:"Marte",
+      opcionC:"Jupiter",
+      opcionD:"Saturno",
+      correcta:"c"
+  },
+  {
+      id:2,
+      categoria:"general",
+      titulo:"¿Quién escribió 'Cien años de soledad'?",
+      opcionA:"Gabriel García Márquez",
+      opcionB:"Julio Cortázar",
+      opcionC:"Isabel Allende",
+      opcionD:"Mario Vargas Llosa",
+      correcta:"a"
+  },
+  {
+    id: 3,
+    categoria: "musica",
+    titulo: "¿Quién es conocido como el primer Rey del Pop?",
+    opcionA: "Elvis Presley",
+    opcionB: "Michael Jackson",
+    opcionC: "Madonna",
+    opcionD: "Prince",
+    correcta: "b"
+},
+{
+  id: 4,
+  categoria: "deportes",
+  titulo: "¿En qué deporte se utiliza una pelota de baloncesto?",
+  opcionA: "Fútbol",
+  opcionB: "Baloncesto",
+  opcionC: "Golf",
+  opcionD: "Tenis",
+  correcta: "b"
+}
+]
+//
 
 scene("game", ({ level, score }) => {
   layers(['bg', 'obj', 'ui'], 'obj')
@@ -65,7 +99,7 @@ scene("game", ({ level, score }) => {
       '                                      ',
       '                            -+        ',
       '                    ^   ^   ()        ',
-      '=======  =====================   =====',
+      '==============================   =====',
     ],
     [
       '£                                       £',
@@ -73,7 +107,7 @@ scene("game", ({ level, score }) => {
       '£                                       £',
       '£                                       £',
       '£                                       £',
-      '£        @@*@@@              x x        £',
+      '£        @@@@@@              x x        £',
       '£                          x x x        £',
       '£                        x x x x  x   -+£',
       '£               z   z  x x x x x  x   ()£',
@@ -149,7 +183,7 @@ scene("game", ({ level, score }) => {
   const player = add([
     sprite('mario'), solid(),
     pos(30, 0),
-    body(), //gravedad
+    body(),
     big(),
     origin('bot')
   ])
@@ -170,49 +204,82 @@ scene("game", ({ level, score }) => {
       gameLevel.spawn('}', obj.gridPos.sub(0,0))
     }
   })
-//
 
-player.collides('mushroom', (m) => {
-  destroy(m)
-  // Generar tres números aleatorios para seleccionar tres preguntas distintas
-  const questionIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * questions.length))
-  // Mostrar las tres preguntas y opciones al jugador
-  const answers = questionIndices.map(index => confirm(questions[index].text))
-  // Verificar las respuestas del jugador
-  const allCorrect = answers.every((answer, index) => answer === questions[questionIndices[index]].answer)
-  if (allCorrect) {
-      alert("¡Todas las respuestas son correctas!")
-      player.biggify(6)
+// AQUI EMPIEZA TEST
+
+// Variables globales
+let currentQuestionIndex = 0;
+
+// Lógica para mostrar la pregunta y las opciones de respuesta
+function showQuestion() {
+  const question = questions[currentQuestionIndex];
+  const questionElem = document.getElementById('question');
+  const optionAElem = document.getElementById('optionA');
+  const optionBElem = document.getElementById('optionB');
+  const optionCElem = document.getElementById('optionC');
+  const optionDElem = document.getElementById('optionD');
+
+  questionElem.textContent = question.titulo;
+  optionAElem.textContent = `A. ${question.opcionA}`;
+  optionBElem.textContent = `B. ${question.opcionB}`;
+  optionCElem.textContent = `C. ${question.opcionC}`;
+  optionDElem.textContent = `D. ${question.opcionD}`;
+}
+
+// Función para verificar la respuesta
+function checkAnswer(answer) {
+  const question = questions[currentQuestionIndex];
+  
+  if (answer === question.correcta) {
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      showQuestion();
+    } else {
+      player.biggify(6);
+    }
   } else {
-      alert("¡Al menos una respuesta es incorrecta!")
+    // Implementa aquí lo que desees hacer en caso de que la respuesta sea incorrecta
   }
-})
+}
 
-// Definir las preguntas y respuestas
-const questions = [
-  {
-      text: "¿Cuánto es 2 + 2?",
-      answer: true // La respuesta es verdadera
-  },
-  {
-      text: "¿Cuál es la capital de Francia?",
-      answer: false // La respuesta es falsa
-  },
-  {
-      text: "¿Cuál es el animal más rápido del mundo?",
-      answer: true // La respuesta es verdadera
-  },
-  {
-      text: "¿Quién escribió 'Don Quijote de la Mancha'?",
-      answer: true // La respuesta es verdadera
-  },
-  // Agrega más preguntas según tus necesidades
-]
-  //
- // player.collides('mushroom', (m) => {
-  //  destroy(m)
-  //  player.biggify(6)
- // })
+// Colisión con el hongo
+player.collides('mushroom', (m) => {
+  destroy(m);
+
+  showQuestion();
+});
+
+// Asignar eventos a los botones de opción
+document.getElementById('optionA').addEventListener('click', () => checkAnswer('a'));
+document.getElementById('optionB').addEventListener('click', () => checkAnswer('b'));
+document.getElementById('optionC').addEventListener('click', () => checkAnswer('c'));
+document.getElementById('optionD').addEventListener('click', () => checkAnswer('d'));
+
+
+
+// ESTE ES EL CODIGO CON LA ALERTA
+// player.collides('mushroom', (m) => {
+//   destroy(m)
+//   // Generar tres números aleatorios para seleccionar tres preguntas distintas
+//   const questionIndices = Array.from({ length: 3 }, () => Math.floor(Math.random() * questions.length))
+//   // Mostrar las tres preguntas y opciones al jugador
+//   const answers = questionIndices.map(index => confirm(questions[index].text))
+//   // Verificar las respuestas del jugador
+//   const allCorrect = answers.every((answer, index) => answer === questions[questionIndices[index]].answer)
+//   if (allCorrect) {
+//       alert("¡Todas las respuestas son correctas!")
+//       player.biggify(6)
+//   } else {
+//       alert("¡Al menos una respuesta es incorrecta!")
+//   }
+// })
+
+
+// AQUI TERMINA , LO DE ABAJO COMENTADO ES LO ORIGINAL
+  // player.collides('mushroom', (m) => {
+  //   destroy(m)
+  //   player.biggify(6)
+  // })
 
   player.collides('coin', (c) => {
     destroy(c)
@@ -275,3 +342,6 @@ scene('lose', ({ score }) => {
 })
 
 start("game", { level: 0, score: 0})
+
+
+
