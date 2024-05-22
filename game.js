@@ -3,7 +3,7 @@ kaboom({
   fullscreen: true,
   scale: 2,
   debug: true,
-  clearColor: [0, 0, 0, 1],
+  background: [0, 0, 0, 1],
 })
 
 // Speed identifiers
@@ -16,7 +16,7 @@ const ENEMY_SPEED = 20
 
 // Game logic
 
-let isJumping = true
+let isJumping = true 
 
 // SPRITES PERSONALIZADAS (NO MARIO), poner sprites/ghosty.png no sirve
 loadSprite('ghosty', "https://kaboomjs.com/sprites/ghosty.png")
@@ -25,7 +25,7 @@ loadSprite('portal', "https://kaboomjs.com/sprites/portal.png")
 loadSprite('spike', "https://kaboomjs.com/sprites/spike.png")
 
 
-
+// NO ESTOY SEGURA SI LOADROOT ESTA EN LA NUEVA VERSION
 
 loadRoot('https://i.imgur.com/') //NO BORRAR, es la ruta para encontrar las imagenes
 //  235Bcj3.png no pixeleado , uSuWl8C.png pixeleado 40 pixeles
@@ -101,9 +101,18 @@ const questions = [
   }
 ]
 
-scene("game", ({ level, score }) => {
-  layers(['bg', 'obj', 'ui'], 'obj')
+// Create a parent node that won't be affected by camera (fixed) and will be drawn on top (z of 100)
+const ui = add([
+  fixed(),
+  z(100),
+])
 
+// LAYERS FUE ELIMINADO DE LA NUEVA VERSION, HAY OTRO SISTEMA, 
+//https://stackoverflow.com/questions/77763223/layer-is-not-defined-in-kaboomjs-v3000
+
+scene("game", ({ level, score } = {level:0 , score:0}) => {
+
+// maps y levelcfg estan afuera de scene en tutorial, no creo que importe, pq son const
   const maps = [
     [
       '       0             ',
@@ -177,28 +186,29 @@ scene("game", ({ level, score }) => {
   ]
 
   const levelCfg = {
-    width: 20,
-    height: 20,
-    '=': [sprite('block'), solid(), scale(0.34)],
-    '$': [sprite('coin'), 'coin'],
-    '%': [sprite('surprise'), solid(), 'coin-surprise'],
-    '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
-    '}': [sprite('unboxed'), solid()],
-    '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
-    ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
-    '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
-    '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
-    'e': [sprite('evil-shroom'), solid(), 'dangerous'],
-    '#': [sprite('mushroom'), solid(), 'mushroom', body()], //body es para darle gravedad
-    '!': [sprite('blue-block'), solid(), scale(0.5)],
-    '£': [sprite('blue-brick'), solid(), scale(0.5)],
-    'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
-    '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
-    'x': [sprite('blue-steel'), solid(), scale(0.5)],
-    'p': [sprite('portal'), solid(), scale(0.8), 'portal'], // esto yo lo agregue
-    '^': [sprite('spike'), solid(), scale(0.3), 'danger'],
-    'g': [sprite('ghosty'), solid() , scale(0.5), 'enemy']
-
+    tileWidth: 20,
+    tileHeight: 20,
+    tiles:{ 
+    '=': () => [sprite('block'), body({ isStatic: true }), scale(0.34)],
+    '$': () => [sprite('coin'), 'coin'],
+    '%': () => [sprite('surprise'), body({ isStatic: true }), 'coin-surprise'],
+    '*': () => [sprite('surprise'), body({ isStatic: true }), 'mushroom-surprise'],
+    '}': () => [sprite('unboxed'), body({ isStatic: true })],
+    '(': () => [sprite('pipe-bottom-left'), body({ isStatic: true }), scale(0.5)],
+    ')': () => [sprite('pipe-bottom-right'), body({ isStatic: true }), scale(0.5)],
+    '-': () => [sprite('pipe-top-left'), body({ isStatic: true }), scale(0.5), 'pipe'],
+    '+': () => [sprite('pipe-top-right'), body({ isStatic: true }), scale(0.5), 'pipe'],
+    'e': () => [sprite('evil-shroom'), body({ isStatic: true }), 'dangerous'],
+    '#': () => [sprite('mushroom'), body({ isStatic: true }), 'mushroom', body()], //body es para darle gravedad
+    '!': () => [sprite('blue-block'), body({ isStatic: true }), scale(0.5)],
+    '£': () => [sprite('blue-brick'), body({ isStatic: true }), scale(0.5)],
+    'z': () => [sprite('blue-evil-shroom'), body({ isStatic: true }), scale(0.5), 'dangerous'],
+    '@': () => [sprite('blue-surprise'), body({ isStatic: true }), scale(0.5), 'coin-surprise'],
+    'x': () => [sprite('blue-steel'), body({ isStatic: true }), scale(0.5)],
+    'p': () => [sprite('portal'), body({ isStatic: true }), scale(0.8), 'portal'], // esto yo lo agregue
+    '^': () => [sprite('spike'), body({ isStatic: true }), scale(0.3), 'danger'],
+    'g': () => [sprite('ghosty'), body({ isStatic: true }) , scale(0.5), 'enemy']
+  }
   }
 
   const gameLevel = addLevel(maps[level], levelCfg)
@@ -206,13 +216,10 @@ scene("game", ({ level, score }) => {
   const scoreLabel = add([
     text(score),
     pos(30, 6),
-    layer('ui'),
     {
       value: score,
     }
   ])
-
-
 
   add([text('level ' + parseInt(level + 1)), pos(40, 6)])
 
@@ -247,11 +254,11 @@ scene("game", ({ level, score }) => {
   }
 
   const player = add([
-    sprite('mario'), solid(), 
+    sprite('mario'), body({ isStatic: true }), 
     pos(30, 0),
     body(),
     big(),
-    origin('bot')
+    anchor('bot')
   ])
 
   action('mushroom', (m) => {
@@ -308,7 +315,7 @@ scene("game", ({ level, score }) => {
   }
 
 // CODIGO ORIGINAL EQUIVALENTE ES:
-// player.collides('mushroom', (m) => {
+// player.onCollide('mushroom', (m) => {
 //   destroy(m)
 //   player.biggify(6)
 // })
@@ -330,7 +337,7 @@ function checkAnswer(answer) {
     hideQuestion();
   }
   add([
-    text("HAZ CLICK PARA MOVERTE"), origin("center")
+    text("HAZ CLICK PARA MOVERTE"), anchor("center")
   ])
   onKeyPress(() => {
     player.move(MOVE_SPEED, 0);
@@ -343,13 +350,13 @@ function checkAnswer(answer) {
   document.getElementById('optionC').addEventListener('click', () => checkAnswer('c'));
   document.getElementById('optionD').addEventListener('click', () => checkAnswer('d'));
 
-  player.collides('mushroom', (m) => {
+  player.onCollide('mushroom', (m) => {
     destroy(m);
     showQuestion();
   });
   
 // DE AQUI PARA ABAJO ES IGUAL A LA ORIGINAL -> ya no, agregue cosas
-  player.collides('coin', (c) => {
+  player.onCollide('coin', (c) => {
     destroy(c);
     scoreLabel.value++;
     scoreLabel.text = scoreLabel.value;
@@ -364,7 +371,7 @@ function checkAnswer(answer) {
   })
 
 
-  player.collides('dangerous', (d) => {
+  player.onCollide('dangerous', (d) => {
     if (isJumping) {
       destroy(d);
     } else {
@@ -372,7 +379,7 @@ function checkAnswer(answer) {
     }
   })
 
-  player.collides("danger", () => {
+  player.onCollide("danger", () => {
 		go('lose', { score: scoreLabel.value })
 	})
 
@@ -384,14 +391,14 @@ function checkAnswer(answer) {
   })
 //Esta funcion yo la puse , PORTAL
 
-player.collides("portal", () => {
+player.onCollide("portal", () => {
   go('game', {
     level: (level + 1) % maps.length,
     score: scoreLabel.value
   });
 });
   // ESTA FUNCION era de la original
-  player.collides('pipe', () => {
+  player.onCollide('pipe', () => {
     keyPress('down', () => {
       go('game', {
         level: (level + 1) % maps.length,
@@ -402,7 +409,7 @@ player.collides("portal", () => {
 
   // ENEMY, GHOSTY
 
-  player.collides('enemy', (d) => {
+  player.onCollide('enemy', (d) => {
     if (isJumping) {
       player.jump(JUMP_FORCE * 2);
       destroy(d)
@@ -436,8 +443,8 @@ player.collides("portal", () => {
     add([
       text("You Lose"), 
     ])
-    add([text(score, 32), origin('center'), pos(width() / 2, height() / 2)]);
+    add([text(score, 32), anchor('center'), pos(width() / 2, height() / 2)]);
   })
 })
 
-start("game", { level: 0, score: 0 })
+go("game", { level: 0, score: 0 })
