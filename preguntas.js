@@ -408,3 +408,13 @@ var preguntas = [
 
 
 ]
+
+// FUNCIÓN PARA SORTEAR LAS PREGUNTAS ALEATORIAMENTE:
+
+function obtenerPreguntaAleatoria() {
+    var indice = Math.floor(Math.random() * preguntas.length);
+    return preguntas[indice];
+}
+
+var pregunta = obtenerPreguntaAleatoria();
+console.log(pregunta.pregunta);
