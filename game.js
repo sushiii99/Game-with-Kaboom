@@ -213,6 +213,7 @@ scene("game", ({ level, score } = {level:0 , score:0}) => {
 
   const gameLevel = addLevel(maps[level], levelCfg)
 
+
   const scoreLabel = add([
     text(score),
     pos(30, 6),
@@ -261,7 +262,7 @@ scene("game", ({ level, score } = {level:0 , score:0}) => {
     anchor('bot')
   ])
 
-  action('mushroom', (m) => {
+  onUpdate('mushroom', (m) => {
     m.move(20, 0)
   })
 
@@ -339,7 +340,7 @@ function checkAnswer(answer) {
   add([
     text("HAZ CLICK PARA MOVERTE"), anchor("center")
   ])
-  onKeyPress(() => {
+  ononKeyPress(() => {
     player.move(MOVE_SPEED, 0);
 })
 }
@@ -362,11 +363,11 @@ function checkAnswer(answer) {
     scoreLabel.text = scoreLabel.value;
   })
 
-  action('dangerous', (d) => {
+  onUpdate('dangerous', (d) => {
     d.move(-ENEMY_SPEED, 0);
   })
 
-  action('enemy', (d) => {
+  onUpdate('enemy', (d) => {
     d.move(-ENEMY_SPEED, 0);
   })
 
@@ -383,7 +384,7 @@ function checkAnswer(answer) {
 		go('lose', { score: scoreLabel.value })
 	})
 
-  player.action(() => {
+  player.onUpdate(() => {
     camPos(player.pos);
     if (player.pos.y >= FALL_DEATH) {
       go('lose', { score: scoreLabel.value });
@@ -399,7 +400,7 @@ player.onCollide("portal", () => {
 });
   // ESTA FUNCION era de la original
   player.onCollide('pipe', () => {
-    keyPress('down', () => {
+    onKeyPress('down', () => {
       go('game', {
         level: (level + 1) % maps.length,
         score: scoreLabel.value
@@ -418,22 +419,22 @@ player.onCollide("portal", () => {
     }
   })
 
-  keyDown('left', () => {
+  onKeyDown('left', () => {
     player.move(-MOVE_SPEED, 0);
   })
 
-  keyDown('right', () => {
+  onKeyDown('right', () => {
     player.move(MOVE_SPEED, 0);
   })
 
-  player.action(() => {
-    if (player.grounded()) {
+  player.onUpdate(() => {
+    if (player.isGrounded()) {
       isJumping = false;
     }
   })
 
-  keyPress('space', () => {
-    if (player.grounded()) {
+  onKeyPress('space', () => {
+    if (player.isGrounded()) {
       isJumping = true;
       player.jump(CURRENT_JUMP_FORCE);
     }
