@@ -50,57 +50,16 @@ loadSprite("skeleton", "/sprites/skeleton.png")
 // SPRITES PERSONALIZADAS XHISFIRE
 loadSprite("chi", "/sprites/chi2.png") 
 
-const questions = [
-    {
-        id: 1,
-        categoria: "general",
-        titulo: "¿Cuál es el planeta más grande de nuestro sistema solar?",
-        opcionA: "Tierra",
-        opcionB: "Marte",
-        opcionC: "Jupiter",
-        opcionD: "Saturno",
-        correcta: "c"
-    },
-    {
-        id: 2,
-        categoria: "general",
-        titulo: "¿Quién escribió 'Cien años de soledad'?",
-        opcionA: "Gabriel García Márquez",
-        opcionB: "Julio Cortázar",
-        opcionC: "Isabel Allende",
-        opcionD: "Mario Vargas Llosa",
-        correcta: "a"
-    },
-    {
-        id: 3,
-        categoria: "musica",
-        titulo: "¿Quién es conocido como el primer Rey del Pop?",
-        opcionA: "Elvis Presley",
-        opcionB: "Michael Jackson",
-        opcionC: "Madonna",
-        opcionD: "Prince",
-        correcta: "b"
-    },
-    {
-        id: 4,
-        categoria: "deportes",
-        titulo: "¿En qué deporte se utiliza una pelota de baloncesto?",
-        opcionA: "Fútbol",
-        opcionB: "Baloncesto",
-        opcionC: "Golf",
-        opcionD: "Tenis",
-        correcta: "b"
-    }
-]
 
-// Variables globales
+console.log(questions);
 let currentQuestionIndex = 0;
 let questionVisible = false;
 
 // Lógica para mostrar la pregunta y las opciones de respuesta
 function showQuestion() {
 questionVisible = true;
-const question = questions[currentQuestionIndex];
+// const question = questions[currentQuestionIndex];
+const question = obtenerPreguntaAleatoria();
 const questionElem = document.getElementById('question');
 const optionAElem = document.getElementById('optionA');
 const optionBElem = document.getElementById('optionB');
@@ -373,27 +332,22 @@ function hideQuestion() {
     player.move(MOVE_SPEED, 0)
     }
 
-    // Función para verificar la respuesta
+// Función para verificar la respuesta
 function checkAnswer(answer) {
     const question = questions[currentQuestionIndex];
     if (answer === question.correcta) {
-    if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        showQuestion();
-    } else {
         player.biggify(6);
         hideQuestion();
         player.move(MOVE_SPEED, 0); // Activar movimiento automáticamente
-    }
     } else {
-    hideQuestion();
+        hideQuestion();
     }
     add([
-    text("HAZ CLICK PARA MOVERTE"), anchor("center")
-    ])
+        text("HAZ CLICK PARA MOVERTE"), anchor("center")
+    ]);
     onKeyPress(() => {
-    player.move(MOVE_SPEED, 0);
-})
+        player.move(MOVE_SPEED, 0);
+    });
 }
 
  // Eventos de clic para los botones de respuesta
