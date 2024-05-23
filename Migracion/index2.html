@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Mario Kaboom.js</title>
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        body {
+            margin: 0; 
+            overflow: hidden; 
+            font-family: Arial, sans-serif;
+        }
+        #question-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgb(252, 249, 249);
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: none; /* Initially hidden */
+            text-align: center;
+        }
+        .option-btn {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container" tabindex="0"> 
+    <div id="question-container" style="display: none;">
+        <div id="question"></div>
+        <button class="option-btn" id="optionA"></button>
+        <button class="option-btn" id="optionB"></button>
+        <button class="option-btn" id="optionC"></button>
+        <button class="option-btn" id="optionD"></button>
+    </div>
+    </div>
+    <script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
+    <script src="game2.js"></script>
+</body>
+</html>

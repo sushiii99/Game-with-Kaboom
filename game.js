@@ -25,16 +25,11 @@ loadSprite('portal', "https://kaboomjs.com/sprites/portal.png")
 loadSprite('spike', "https://kaboomjs.com/sprites/spike.png")
 
 
-// NO ESTOY SEGURA SI LOADROOT ESTA EN LA NUEVA VERSION
+
 
 loadRoot('https://i.imgur.com/') //NO BORRAR, es la ruta para encontrar las imagenes
 //  235Bcj3.png no pixeleado , uSuWl8C.png pixeleado 40 pixeles
 loadSprite('mario', '235Bcj3.png')
-
-
-
-
-// FIN SPRITES 
 
 loadRoot('https://i.imgur.com/')
 loadSprite('coin', 'wbKxhcd.png')
@@ -340,7 +335,7 @@ function checkAnswer(answer) {
   add([
     text("HAZ CLICK PARA MOVERTE"), anchor("center")
   ])
-  ononKeyPress(() => {
+  onKeyPress(() => {
     player.move(MOVE_SPEED, 0);
 })
 }
