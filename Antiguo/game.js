@@ -3,7 +3,7 @@ kaboom({
   fullscreen: true,
   scale: 2,
   debug: true,
-  background: [0, 0, 0, 1],
+  clearColor: [0, 0, 0, 1],
 })
 
 // Speed identifiers
@@ -16,7 +16,7 @@ const ENEMY_SPEED = 20
 
 // Game logic
 
-let isJumping = true 
+let isJumping = true
 
 // SPRITES PERSONALIZADAS (NO MARIO), poner sprites/ghosty.png no sirve
 loadSprite('ghosty', "https://kaboomjs.com/sprites/ghosty.png")
@@ -30,6 +30,11 @@ loadSprite('spike', "https://kaboomjs.com/sprites/spike.png")
 loadRoot('https://i.imgur.com/') //NO BORRAR, es la ruta para encontrar las imagenes
 //  235Bcj3.png no pixeleado , uSuWl8C.png pixeleado 40 pixeles
 loadSprite('mario', '235Bcj3.png')
+
+
+
+
+// FIN SPRITES 
 
 loadRoot('https://i.imgur.com/')
 loadSprite('coin', 'wbKxhcd.png')
@@ -96,18 +101,9 @@ const questions = [
   }
 ]
 
-// Create a parent node that won't be affected by camera (fixed) and will be drawn on top (z of 100)
-const ui = add([
-  fixed(),
-  z(100),
-])
+scene("game", ({ level, score }) => {
+  layers(['bg', 'obj', 'ui'], 'obj')
 
-// LAYERS FUE ELIMINADO DE LA NUEVA VERSION, HAY OTRO SISTEMA, 
-//https://stackoverflow.com/questions/77763223/layer-is-not-defined-in-kaboomjs-v3000
-
-scene("game", ({ level, score } = {level:0 , score:0}) => {
-
-// maps y levelcfg estan afuera de scene en tutorial, no creo que importe, pq son const
   const maps = [
     [
       '       0             ',
@@ -181,41 +177,42 @@ scene("game", ({ level, score } = {level:0 , score:0}) => {
   ]
 
   const levelCfg = {
-    tileWidth: 20,
-    tileHeight: 20,
-    tiles:{ 
-    '=': () => [sprite('block'), body({ isStatic: true }), scale(0.34)],
-    '$': () => [sprite('coin'), 'coin'],
-    '%': () => [sprite('surprise'), body({ isStatic: true }), 'coin-surprise'],
-    '*': () => [sprite('surprise'), body({ isStatic: true }), 'mushroom-surprise'],
-    '}': () => [sprite('unboxed'), body({ isStatic: true })],
-    '(': () => [sprite('pipe-bottom-left'), body({ isStatic: true }), scale(0.5)],
-    ')': () => [sprite('pipe-bottom-right'), body({ isStatic: true }), scale(0.5)],
-    '-': () => [sprite('pipe-top-left'), body({ isStatic: true }), scale(0.5), 'pipe'],
-    '+': () => [sprite('pipe-top-right'), body({ isStatic: true }), scale(0.5), 'pipe'],
-    'e': () => [sprite('evil-shroom'), body({ isStatic: true }), 'dangerous'],
-    '#': () => [sprite('mushroom'), body({ isStatic: true }), 'mushroom', body()], //body es para darle gravedad
-    '!': () => [sprite('blue-block'), body({ isStatic: true }), scale(0.5)],
-    '£': () => [sprite('blue-brick'), body({ isStatic: true }), scale(0.5)],
-    'z': () => [sprite('blue-evil-shroom'), body({ isStatic: true }), scale(0.5), 'dangerous'],
-    '@': () => [sprite('blue-surprise'), body({ isStatic: true }), scale(0.5), 'coin-surprise'],
-    'x': () => [sprite('blue-steel'), body({ isStatic: true }), scale(0.5)],
-    'p': () => [sprite('portal'), body({ isStatic: true }), scale(0.8), 'portal'], // esto yo lo agregue
-    '^': () => [sprite('spike'), body({ isStatic: true }), scale(0.3), 'danger'],
-    'g': () => [sprite('ghosty'), body({ isStatic: true }) , scale(0.5), 'enemy']
-  }
+    width: 20,
+    height: 20,
+    '=': [sprite('block'), solid(), scale(0.34)],
+    '$': [sprite('coin'), 'coin'],
+    '%': [sprite('surprise'), solid(), 'coin-surprise'],
+    '*': [sprite('surprise'), solid(), 'mushroom-surprise'],
+    '}': [sprite('unboxed'), solid()],
+    '(': [sprite('pipe-bottom-left'), solid(), scale(0.5)],
+    ')': [sprite('pipe-bottom-right'), solid(), scale(0.5)],
+    '-': [sprite('pipe-top-left'), solid(), scale(0.5), 'pipe'],
+    '+': [sprite('pipe-top-right'), solid(), scale(0.5), 'pipe'],
+    'e': [sprite('evil-shroom'), solid(), 'dangerous'],
+    '#': [sprite('mushroom'), solid(), 'mushroom', body()], //body es para darle gravedad
+    '!': [sprite('blue-block'), solid(), scale(0.5)],
+    '£': [sprite('blue-brick'), solid(), scale(0.5)],
+    'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
+    '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
+    'x': [sprite('blue-steel'), solid(), scale(0.5)],
+    'p': [sprite('portal'), solid(), scale(0.8), 'portal'], // esto yo lo agregue
+    '^': [sprite('spike'), solid(), scale(0.3), 'danger'],
+    'g': [sprite('ghosty'), solid() , scale(0.5), 'enemy']
+
   }
 
   const gameLevel = addLevel(maps[level], levelCfg)
 
-
   const scoreLabel = add([
     text(score),
     pos(30, 6),
+    layer('ui'),
     {
       value: score,
     }
   ])
+
+
 
   add([text('level ' + parseInt(level + 1)), pos(40, 6)])
 
@@ -250,14 +247,14 @@ scene("game", ({ level, score } = {level:0 , score:0}) => {
   }
 
   const player = add([
-    sprite('mario'), body({ isStatic: true }), 
+    sprite('mario'), solid(), 
     pos(30, 0),
     body(),
     big(),
-    anchor('bot')
+    origin('bot')
   ])
 
-  onUpdate('mushroom', (m) => {
+  action('mushroom', (m) => {
     m.move(20, 0)
   })
 
@@ -311,7 +308,7 @@ scene("game", ({ level, score } = {level:0 , score:0}) => {
   }
 
 // CODIGO ORIGINAL EQUIVALENTE ES:
-// player.onCollide('mushroom', (m) => {
+// player.collides('mushroom', (m) => {
 //   destroy(m)
 //   player.biggify(6)
 // })
@@ -333,7 +330,7 @@ function checkAnswer(answer) {
     hideQuestion();
   }
   add([
-    text("HAZ CLICK PARA MOVERTE"), anchor("center")
+    text("HAZ CLICK PARA MOVERTE"), origin("center")
   ])
   onKeyPress(() => {
     player.move(MOVE_SPEED, 0);
@@ -346,28 +343,28 @@ function checkAnswer(answer) {
   document.getElementById('optionC').addEventListener('click', () => checkAnswer('c'));
   document.getElementById('optionD').addEventListener('click', () => checkAnswer('d'));
 
-  player.onCollide('mushroom', (m) => {
+  player.collides('mushroom', (m) => {
     destroy(m);
     showQuestion();
   });
   
 // DE AQUI PARA ABAJO ES IGUAL A LA ORIGINAL -> ya no, agregue cosas
-  player.onCollide('coin', (c) => {
+  player.collides('coin', (c) => {
     destroy(c);
     scoreLabel.value++;
     scoreLabel.text = scoreLabel.value;
   })
 
-  onUpdate('dangerous', (d) => {
+  action('dangerous', (d) => {
     d.move(-ENEMY_SPEED, 0);
   })
 
-  onUpdate('enemy', (d) => {
+  action('enemy', (d) => {
     d.move(-ENEMY_SPEED, 0);
   })
 
 
-  player.onCollide('dangerous', (d) => {
+  player.collides('dangerous', (d) => {
     if (isJumping) {
       destroy(d);
     } else {
@@ -375,11 +372,11 @@ function checkAnswer(answer) {
     }
   })
 
-  player.onCollide("danger", () => {
+  player.collides("danger", () => {
 		go('lose', { score: scoreLabel.value })
 	})
 
-  player.onUpdate(() => {
+  player.action(() => {
     camPos(player.pos);
     if (player.pos.y >= FALL_DEATH) {
       go('lose', { score: scoreLabel.value });
@@ -387,15 +384,15 @@ function checkAnswer(answer) {
   })
 //Esta funcion yo la puse , PORTAL
 
-player.onCollide("portal", () => {
+player.collides("portal", () => {
   go('game', {
     level: (level + 1) % maps.length,
     score: scoreLabel.value
   });
 });
   // ESTA FUNCION era de la original
-  player.onCollide('pipe', () => {
-    onKeyPress('down', () => {
+  player.collides('pipe', () => {
+    keyPress('down', () => {
       go('game', {
         level: (level + 1) % maps.length,
         score: scoreLabel.value
@@ -405,7 +402,7 @@ player.onCollide("portal", () => {
 
   // ENEMY, GHOSTY
 
-  player.onCollide('enemy', (d) => {
+  player.collides('enemy', (d) => {
     if (isJumping) {
       player.jump(JUMP_FORCE * 2);
       destroy(d)
@@ -414,22 +411,22 @@ player.onCollide("portal", () => {
     }
   })
 
-  onKeyDown('left', () => {
+  keyDown('left', () => {
     player.move(-MOVE_SPEED, 0);
   })
 
-  onKeyDown('right', () => {
+  keyDown('right', () => {
     player.move(MOVE_SPEED, 0);
   })
 
-  player.onUpdate(() => {
-    if (player.isGrounded()) {
+  player.action(() => {
+    if (player.grounded()) {
       isJumping = false;
     }
   })
 
-  onKeyPress('space', () => {
-    if (player.isGrounded()) {
+  keyPress('space', () => {
+    if (player.grounded()) {
       isJumping = true;
       player.jump(CURRENT_JUMP_FORCE);
     }
@@ -439,8 +436,8 @@ player.onCollide("portal", () => {
     add([
       text("You Lose"), 
     ])
-    add([text(score, 32), anchor('center'), pos(width() / 2, height() / 2)]);
+    add([text(score, 32), origin('center'), pos(width() / 2, height() / 2)]);
   })
 })
 
-go("game", { level: 0, score: 0 })
+start("game", { level: 0, score: 0 })
