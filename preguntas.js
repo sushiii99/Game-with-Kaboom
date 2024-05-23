@@ -56,14 +56,6 @@ var preguntas = [
     },
 
     {
-        pregunta: "¿Cuál de estas actividades te ayuda a despertarte sintiéndote más descansado/a?",
-        respuestaA: "Dormir en un colchón incómodo",
-        respuestaB: "Seguir una rutina de sueño regular",
-        respuestaC: "Consumir cafeína antes de acostarte",
-        correcta: "b) Seguir una rutina de sueño regular"
-    },
-
-    {
         pregunta: "¿Qué hábito puede mejorar la calidad de tu sueño?",
         respuestaA: "Ir a la cama a horas aleatorias cada noche",
         respuestaB: "Mantener la habitación desordenada",
@@ -90,22 +82,7 @@ var preguntas = [
         correcta: "c) Limitar la exposición a pantallas brillantes antes de dormir"
     },
 
-    {
-        pregunta: "¿Qué acción contribuye más a tu bienestar general?",
-        respuestaA: "Comer al menos 5 porciones de frutas y verduras al día",
-        respuestaB: "Pasar todo el día sin beber agua",
-        respuestaC: "Comer comida rápida todos los días",
-        correcta: "a) Comer al menos 5 porciones de frutas y verduras al día"
-    },
-
-    {
-        pregunta: "¿Cuál de estas actividades promueve una buena salud física?",
-        respuestaA: "Pasar todo el día sentado frente a una pantalla",
-        respuestaB: "Hacer ejercicio regularmente",
-        respuestaC: "Consumir alimentos altos en grasas y azúcares",
-        correcta: "b) Hacer ejercicio regularmente"
-    },
-
+   
     {
         pregunta: "¿Qué hábito te ayuda a mantenerte correctamente hidratado/a durante el día?",
         respuestaA: "Beber solo bebidas azucaradas",
@@ -115,14 +92,7 @@ var preguntas = [
         correcta: "c) Consumir entre 6 a 8 vasos de agua al día"
     },
 
-    {
-        pregunta: "¿Cuál de estas prácticas promueve una buena salud digestiva?",
-        respuestaA: "Consumir alimentos ricos en fibra y beber suficiente agua",
-        respuestaB: "Comer alimentos procesados y azucarados",
-        respuestaC: "Consumir solo bebidas gaseosas",
-        correcta: "a) Consumir alimentos ricos en fibra y beber suficiente agua"
-    },
-
+   
     {
         pregunta: "¿Qué acción puede ayudarte a mantener una piel sana?",
         respuestaA: "Pasar todo el día bajo el sol sin protección",
@@ -150,96 +120,7 @@ var preguntas = [
         correcta: "b) Incluir una variedad de alimentos en tu dieta, como frutas, verduras, proteínas y granos enteros"
     },
 
-    {
-        pregunta: "¿Qué hábito promueve una relación más positiva con la comida?",
-        respuestaA: "Asociar la comida con emociones negativas como castigo o recompensa",
-        respuestaB: "Disfrutar de la comida sin sentir culpa ni remordimientos",
-        respuestaC: "Comer solo cuando estás aburrido/a o estresado/a",
-        correcta: "b) Disfrutar de la comida sin sentir culpa ni remordimientos"
-    },
-
-    {
-        pregunta: "¿Es un mito que la salud mental no es importante mientras estés físicamente saludable?",
-        respuestaA: "Mito ",
-        respuestaB: "Realidad ",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "¿Es cierto que pedir ayuda es una señal de debilidad?",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "¿Es cierto que la salud mental de los adolescentes es menos importante que la de los adultos?",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "¿Es cierto que la terapia solo es útil para las personas con trastornos mentales graves?",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "La frase (La salud mental es solo cuestión de voluntad) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "La frase (Dormir mucho es siempre mejor) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "La frase (La autoestima es estática y no puede fluctuar) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "La frase (Los adolescentes no sufren de problemas de salud mental reales) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-    {
-        pregunta: "La frase (Puedes recuperar el sueño perdido durante el fin de semana) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-
-    {
-        pregunta: "La frase (La actividad física regular puede ayudar a reducir el estrés en los adolescentes) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "b) Realidad"
-    },
-
-    {
-        pregunta: "La frase (El uso excesivo de las redes sociales puede aumentar el riesgo de problemas de salud mental en los adolescentes) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "b) Realidad"
-    },
-    {
-        pregunta: "La frase (Los adolescentes que reciben más interacciones en las redes sociales siempre tienen una autoestima más alta) es: ",
-        respuestaA: "Mito",
-        respuestaB: "Realidad",
-        correcta: "a) Mito"
-    },
-    
+   
     {
         pregunta: "¿Cuál de las siguientes opciones es una fuente saludable de proteínas?",
         respuestaA: "Hamburguesa con queso",
@@ -271,7 +152,7 @@ var preguntas = [
         pregunta: "¿Cuál de las siguientes opciones es una colación saludable?",
         respuestaA: "Galletas con crema de chocolate",
         respuestaB: "Yogurt con frutas",
-        respuestaC: " Palomitas de maíz con mantequilla",
+        respuestaC: "Palomitas de maíz con mantequilla",
         respuestaD: "Manzana caramelizada",
         correcta: "b) Yogurt con frutas"
     },
@@ -321,20 +202,7 @@ var preguntas = [
         correcta: "a) La ansiedad es una respuesta adaptativa del cuerpo que puede ayudar a protegerlo"
     },
 
-    {
-        pregunta: "La depresión solo afecta a las personas mayores; los adolescentes no pueden experimentar depresión",
-        respuestaA: "Verdadero",
-        respuestaB: "Falso",
-        correcta: "b) Falso"
-    },
-
-    {
-        pregunta: "La ansiedad es siempre una respuesta normal y saludable ante situaciones estresantes",
-        respuestaA: "Verdadero",
-        respuestaB: "Falso",
-        correcta: "b) Falso"
-    },
-
+   
     {
         pregunta: "¿Qué son los trastornos de la alimentación",
         respuestaA: "Son patrones anormales de comportamiento alimentario que pueden implicar la restricción extrema de alimentos, el exceso de ejercicio o la purga",
@@ -353,14 +221,7 @@ var preguntas = [
         correcta: "b) Es una condición médica caracterizada por una persistente sensación de tristeza y pérdida de interés en actividades cotidianas"
     },
 
-    {
-        pregunta: "¿Cuál de estos no es síntoma de la depresión?",
-        respuestaA: "Aumento de la energía y actividad",
-        respuestaB: "Sentimientos de tristeza y desesperanza",
-        respuestaC: "Insomnio o hipersomnia",
-        correcta: "a) Aumento de la energía y actividad"
-    },
-
+   
     {
         pregunta: "¿Cuál de estos sí es un factor de riesgo para desarrollar un problema de salud mental?",
         respuestaA: "Mantener relaciones sociales saludables",
@@ -370,43 +231,7 @@ var preguntas = [
         correcta: "d) Experimentar traumas o eventos estresantes"
     },
 
-    {
-        pregunta: "La frase (Hablar sobre problemas de salud mental puede empeorar la situación) es: ",
-        respuestaA: "Verdadera",
-        respuestaB: "Falsa",
-        correcta: "b) Falsa"
-    },
-
-    {
-        pregunta: "La frase (El estigma social puede ser un obstáculo para buscar ayuda) es: ",
-        respuestaA: "Verdadera",
-        respuestaB: "Falsa",
-        correcta: "a) Verdadera"
-    },
-
-    {
-        pregunta: "La frase (Los adolescentes con problemas de salud mental nunca se recuperan) es: ",
-        respuestaA: "Verdadera",
-        respuestaB: "Falsa",
-        correcta: "b) Falsa"
-    },
-
-    {
-        pregunta: "El desarrollo y práctica de hábitos saludables son fundamentales para evitar, en parte, los problemas de salud mental: ",
-        respuestaA: "Verdadero",
-        respuestaB: "Falso",
-        correcta: "a) Verdadero"
-    },
-
-    {
-        pregunta: "¿Cuál de estas no es una estrategia para manejar el estrés?",
-        respuestaA: "Ignorar por completo las situaciones estresantes",
-        respuestaB: "Hacer ejercicio regularmente",
-        respuestaC: "Hablar con amigos o seres queridos sobre tus preocupaciones",
-        correcta: "a) Ignorar por completo las situaciones estresantes"
-    },
-
-
+    
 ]
 
 // FUNCIÓN PARA SORTEAR LAS PREGUNTAS ALEATORIAMENTE:
