@@ -44,11 +44,23 @@ loadSprite("red-wall", "/sprites/red-wall.png")
 loadSprite("surprise", "/sprites/surprise.png")
 loadSprite("unboxed", "/sprites/unboxed.png")
 loadSprite("flower", "/sprites/flower.png") 
-// SPRITES EXTRA
+// SPRITES EXTRA zelda
 loadSprite("stairs", "/sprites/stairs.png") 
 loadSprite("skeleton", "/sprites/skeleton.png")
+loadSprite("linternas", "/sprites/linternas.png") 
+loadSprite("peligro", "/sprites/peligro.png") 
 // SPRITES PERSONALIZADAS XHISFIRE
 loadSprite("chi", "/sprites/chi2.png") 
+loadSprite("cofre", "/sprites/cofre.png")
+loadSprite("sign", "/sprites/1874317.png") 
+loadSprite("pink-grass", "/sprites/pink-grass.png") 
+loadSprite("pink-tree", "/sprites/pink-tree.png")
+loadSprite("purple-heart", "/sprites/purple-heart.png")
+loadSprite("tree2", "/sprites/tree2.png")
+
+
+
+
 
 
 console.log(questions);
@@ -139,15 +151,16 @@ const MOVE_SPEED = 480
 const FALL_DEATH = 2400
 
 const LEVELS = [
-    [    
-    "           c                ",                                    
+    [  
+    "                c           ",  
+    "                            ",                                    
     "    c              c        ",
-    "                         o  ",
-    "   1   1*414                ",
+    "           6             o  ",
+    "   1   1*_1_                ",
     "                            ",
     "                            ",
-    "          e   e           p ",
-    "44444444444444444444   44444",
+    "  f )  f  e   e f      ! i i",
+    "____________________   444s4",
 ],
 [
     "£                              £",
@@ -161,13 +174,13 @@ const LEVELS = [
     "55555555555555555555555555555555",
 ],
 [
-    "    0      o",
-    "   --   3   ",
-    "       $$   ",
-    " %    ===   ",
-    "            ",
-    "   ^^ f> = @",
-    "============",
+    "     0      o",
+    "    --   3   ",
+    "        $$   ",
+    "  %    ===   ",
+    "             ",
+    "    ^^ f> = @",
+    " ============",
 ],
 	[
 		"                          $",
@@ -183,15 +196,15 @@ const LEVELS = [
 		"===========================",
 	],
 	[
-		"     $    $    $    $     $",
-		"     $    $    $    $     $",
-		"                           ",
-		"                           ",
-		"                           ",
-		"                           ",
-		"                           ",
-		" ^^^^>^^^^>^^^^>^^^^>^^^^^@",
-		"===========================",
+		"      $    $    $    $     $",
+		"      $    $    $    $     $",
+		"                            ",
+		"                            ",
+		"                            ",
+		"                            ",
+		"                            ",
+		"  ^^^^>^^^^>^^^^>^^^^>^^^^^@",
+		" ===========================",
 	],
 ]
 
@@ -212,7 +225,7 @@ const levelConf = {
 		">": () => [sprite("ghosty"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
 		"@": () => [sprite("portal"),area(), scale(2), anchor("bot"),pos(0, -12),hide,"portal",],
         "p": () => [sprite("pipe"),area({ scale: 0.5 }), scale(2), anchor("bot"),hide,"portal",],
-        "s": () => [sprite("stairs"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
+        "s": () => [sprite("stairs"),area({ scale: 1.2 }),scale (1.4), pos(0, 5), anchor("bot"), hide, "portal",],
         "3": () => [sprite("btfly"),area(),pos(0, -9),anchor("bot"),hide,],
         "f": () => [sprite("flower"), anchor("bot"),hide,],
         "m": () => [sprite("moon"),area(),pos(0, -9),anchor("bot"),hide,],
@@ -233,8 +246,13 @@ const levelConf = {
         "e": () => [sprite("evil-shroom"),area(), scale(3.2), anchor("bot"),body(),patrol(),hide,"enemy",],
         "b": () => [sprite("blue-evil-shroom"),area(), scale(1.6), anchor("bot"),body(),patrol(),hide,"enemy",],
         "y": () => [sprite("mushm"),area(),  scale(3.2), anchor("bot"),body(),patrol(),hide,],
-
-        
+		"i": () => [sprite("linternas"),area(),anchor("bot"),hide,],
+        "!": () => [sprite("sign"),area(), scale(0.15),anchor("bot"),hide,],
+		"(": () => [sprite("cofre"),area(),static,anchor("bot"),hide,"prize",],
+		"_":  () => [sprite("pink-grass"), area(), scale(0.042), static, anchor("bot"), hide,"platform",],
+        "6": () => [sprite("pink-tree"),area(), scale(0.4), pos(0,3), anchor("bot"),hide,],
+		"8": () => [sprite("purple-heart"),area(),anchor("bot"),hide,],
+		")": () => [sprite("tree2"),area(), pos(0,15), anchor("bot"),hide,],
 	},
 }
 
@@ -246,7 +264,7 @@ scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 	// define player object
 	const player = add([
 		sprite("chi"),
-		pos(0, 0),
+		pos(64, 0),
 		area(),
 		scale(0.5),
 		// makes it fall to gravity and jumpable
