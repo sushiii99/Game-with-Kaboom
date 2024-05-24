@@ -158,19 +158,19 @@ const LEVELS = [
     "           6             o  ",
     "   1   1*_1_                ",
     "                            ",
-    "                            ",
-    "  f )  f  e   e f      ! i i",
-    "____________________   444s4",
+    "                  (         ",
+    "  f )  f  e   e f _    ! i i",
+    "___________________    444s4",
 ],
 [
     "£                              £",
     "£                              £",
     "£                              £",
     "£                              £",
-    "£   111*11          x x        £",
+    "£   1*1*11          x x        £",
     "£                 x x x        £",
-    "£               x x x x  x  @  £",
-    "£      b   b  x x x x x  x     £",
+    "£               x x x x x  @   £",
+    "£      b   b  x x xtx xtx      £",
     "55555555555555555555555555555555",
 ],
 [
@@ -235,31 +235,33 @@ const levelConf = {
         "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
         "k": () => [sprite("key"),area(),pos(0, -9),anchor("bot"),hide,],
-        "1": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"prize",],
+        "1": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"coin-surprise",],
+		"*": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"prize",],
         "2": () => [sprite("unboxed"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
         "4": () => [sprite("brick"), area(), scale(3.2),  static, anchor("bot"), hide, "platform",],
         "5": () => [sprite("blue-brick"), area(), scale(1.6),static, anchor("bot"), hide,"platform",],
         "x": () => [sprite("blue-steel"), area({ scale: 0.8 }),  scale(1.6), static, anchor("bot"), hide,"platform",],
         "£": () => [sprite("blue-wall"), area(), scale(1.6),static, anchor("bot"), hide,"platform",],
         "9": () => [sprite("red-wall"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
-        "t": () => [sprite("skeleton"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
-        "e": () => [sprite("evil-shroom"),area(), scale(3.2), anchor("bot"),body(),patrol(),hide,"enemy",],
-        "b": () => [sprite("blue-evil-shroom"),area(), scale(1.6), anchor("bot"),body(),patrol(),hide,"enemy",],
+        "t": () => [sprite("skeleton"),area(),anchor("bot"),body(),patrol(),hide,"danger",],
+        "e": () => [sprite("evil-shroom"),area({ scale: 0.5 }), scale(3.2), anchor("bot"),body(),patrol(),hide,"dangerous",],
+        "b": () => [sprite("blue-evil-shroom"),area({ scale: 0.8 }), scale(1.6), anchor("bot"),body(),patrol(),hide,"dangerous",],
         "y": () => [sprite("mushm"),area(),  scale(3.2), anchor("bot"),body(),patrol(),hide,],
 		"i": () => [sprite("linternas"),area(),anchor("bot"),hide,],
         "!": () => [sprite("sign"),area(), scale(0.15),anchor("bot"),hide,],
-		"(": () => [sprite("cofre"),area(),static,anchor("bot"),hide,"prize",],
+		"(": () => [sprite("cofre"),area(),pos(0,8), static,anchor("bot"),hide,"cofre",],
 		"_":  () => [sprite("pink-grass"), area(), scale(0.042), static, anchor("bot"), hide,"platform",],
         "6": () => [sprite("pink-tree"),area(), scale(0.4), pos(0,3), anchor("bot"),hide,],
-		"8": () => [sprite("purple-heart"),area(),anchor("bot"),hide,],
+		"8": () => [sprite("purple-heart"),area(), scale(0.1), anchor("bot"), body(), hide, "apple"],
 		")": () => [sprite("tree2"),area(), pos(0,15), anchor("bot"),hide,],
 	},
 }
 
-scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
+scene("game", ({ levelId, coins, score } = { levelId: 0, coins: 0, score: 0}) => {
 
 	// add level to scene
 	const level = addLevel(LEVELS[levelId ?? 0], levelConf)
+
 
 	// define player object
 	const player = add([
@@ -273,6 +275,13 @@ scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 		big(),
 		anchor("bot"),
 	])
+
+	//NO FUNCIONA :c
+	// if (levelId === 1) {
+	// 	player.jump(200)
+	// } 
+
+
 
 	// action() runs every frame
 	player.onUpdate(() => {
@@ -307,6 +316,7 @@ scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 			go("game", {
 				levelId: levelId + 1,
 				coins: coins,
+				score: score, 
 			})
 		} else {
 			go("win")
@@ -322,7 +332,7 @@ scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 		}
 	})
 
-	player.onCollide("enemy", (e, col) => {
+	player.onCollide(("enemy", "dangerous"), (e, col) => {
 		// if it's not from the top, die
 		if (!col.isBottom()) {
 			go("lose")
@@ -330,15 +340,46 @@ scene("game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 		}
 	})
 
-	let hasApple = false
+	// Si toca el cofre, aparece corazon
+	player.onCollide((obj) => {
+		if (obj.is("cofre")) {
+			const apple = level.spawn("8", obj.tilePos.sub(0, 1)) 
+			apple.jump()
+			
+			destroy(obj)
+			play("blip")
+		}
+		
+	})
+
+
+	
+	player.onGround((l) => {
+		if (l.is("dangerous")) {
+			destroy(l)
+			addKaboom(player.pos)
+			play("powerup")
+		}
+	})
+
+	
 
 	// grow an apple if player's head bumps into an obj with "prize" tag
 	player.onHeadbutt((obj) => {
-		if (obj.is("prize") && !hasApple) {
-			const apple = level.spawn("#", obj.tilePos.sub(0, 1))
+		if (obj.is("prize") ) {
+			const apple = level.spawn("8", obj.tilePos.sub(0, 1)) //ahora es corazon
 			apple.jump()
-			hasApple = true
 			play("blip")
+		}
+		if (obj.is('coin-surprise')) {
+			level.spawn('$', obj.tilePos.sub(0, 1))
+			destroy(obj)
+			level.spawn('2', obj.tilePos.sub(0, 0))
+		}
+		if (obj.is('mushroom-surprise')) {  //aun no se usa
+			level.spawn('y', obj.tilePos.sub(0, 1))
+		    destroy(obj)
+		    level.spawn('2', obj.tilePos.sub(0, 0))
 		}
 	})
 
@@ -357,12 +398,17 @@ function checkAnswer(answer) {
         player.biggify(6);
         hideQuestion();
         player.move(MOVE_SPEED, 0); // Activar movimiento automáticamente
+		add([
+			text("Correcto!,  HAZ CLICK PARA MOVERTE!!"), anchor("left"), 
+		]);
+		score += 1
+		scoreLabel.text = "Puntaje: " + score
     } else {
         hideQuestion();
+		add([
+			text("Incorrecto!,  HAZ CLICK PARA MOVERTE!!"), anchor("left"), 
+		])
     }
-    add([
-        text("LUEGO DE RESPONDER HAZ CLICK PARA MOVERTE!!"), anchor("center")
-    ]);
     onKeyPress(() => {
         player.move(MOVE_SPEED, 0);
     });
@@ -379,12 +425,11 @@ document.getElementById('optionD').addEventListener('click', () => checkAnswer('
 		destroy(a)
         showQuestion();
 		// as we defined in the big() component
-        hasApple = false
 		play("powerup")
 	})
 
 	let coinPitch = 0
-
+// creo que coinPitch es para el sonido de moneda, pero yo no escucho nada...
 	onUpdate(() => {
 		if (coinPitch > 0) {
 			coinPitch = Math.max(0, coinPitch - dt() * 100)
@@ -398,12 +443,18 @@ document.getElementById('optionD').addEventListener('click', () => checkAnswer('
 		})
 		coinPitch += 100
 		coins += 1
-		coinsLabel.text = coins
+		coinsLabel.text = "Monedas: " + coins
 	})
 
 	const coinsLabel = add([
-		text(coins),
+		text("Monedas: ",  coins),
 		pos(24, 24),
+		fixed(),
+	])
+
+	const scoreLabel = add([
+		text("Puntaje: ", score),
+		pos(24, 64),
 		fixed(),
 	])
 
@@ -445,9 +496,10 @@ document.getElementById('optionD').addEventListener('click', () => checkAnswer('
 
 })
 
+// score, coins, coinsLabel, scoreLabel dice que no estan definidas si las pongo aqui :c
 scene("lose", () => {
 	add([
-		text("You Lose"),
+		text("Perdiste! intentalo de nuevo!"), 
 	])
 	onKeyPress(() => go("game"))
 })
