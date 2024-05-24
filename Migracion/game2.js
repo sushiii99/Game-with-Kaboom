@@ -361,7 +361,7 @@ function checkAnswer(answer) {
         hideQuestion();
     }
     add([
-        text("HAZ CLICK PARA MOVERTE"), anchor("center")
+        text("LUEGO DE RESPONDER HAZ CLICK PARA MOVERTE!!"), anchor("center")
     ]);
     onKeyPress(() => {
         player.move(MOVE_SPEED, 0);
