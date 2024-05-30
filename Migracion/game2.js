@@ -254,6 +254,41 @@ const levelConf = {
         "6": () => [sprite("pink-tree"),area(), scale(0.4), pos(0,3), anchor("bot"),hide,],
 		"8": () => [sprite("purple-heart"),area(), scale(0.1), anchor("bot"), body(), hide, "apple"],
 		")": () => [sprite("tree2"),area(), pos(0,15), anchor("bot"),hide,],
+		"¬":
+		"|":
+		"°":
+		"{":
+		"}":
+		"+":
+		"~":
+		"[":
+		"]":
+		"a":
+		"q":
+		"r":
+		"u":
+		"v":
+		"w":
+		"h":
+		"j":
+		"l":
+		"z":
+		"i":
+		"ñ":
+		",":
+		";":
+		":": 
+		"¨":
+		"/":
+		"?":
+		"¿":
+		"¡":
+		".": 
+		"`":
+		"&":
+		"<":
+		
+	
 	},
 }
 
