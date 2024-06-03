@@ -2,6 +2,29 @@ kaboom({
 	// background: [141, 183, 255],
 })
 
+async function init() {
+	kaboom();
+	let bgImage = await loadSprite("background", "/Pics/Fondo6Nieve.png");
+  
+	let background = add([
+	  sprite("background"),
+	  // Make the background centered on the screen
+	  pos(width() / 2, height() / 2),
+	  // Allow the background to be scaled
+	  scale(1),
+	  // Keep the background position fixed even when the camera moves
+	  fixed()
+	]);
+	// Scale the background to cover the screen
+	background.scaleTo(Math.max(
+	  width() / bgImage.tex.width,
+	  height() / bgImage.tex.height
+	));
+  }
+  
+  init();
+  
+
 
 // AGREGADO PARA FONDOS
 const theBackground = add([
