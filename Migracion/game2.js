@@ -1,5 +1,5 @@
 kaboom({
-	// background: [141, 183, 255],
+	background: [141, 183, 255],
 })
 
 // load assets platformer, funciona con live server, no path
@@ -71,6 +71,19 @@ loadSprite("tree-f2", "/sprites/tree-f2.png" )
 loadSprite("cueva", "/sprites/cueva.png" )
 loadSprite("rama", "/sprites/rama.png" )
 loadSprite("plant", "/sprites/plant.png" )
+
+// FONDOS
+loadSprite("montaña", "/sprites/Fondo1Montaña.png"),
+loadSprite("mar", "/sprites/Fondo2Mar.png"),
+loadSprite("bosque", "/sprites/Fondo3Bosque.png"),
+loadSprite("orange", "/sprites/Fondo4Orange.png"),
+loadSprite("nieve", "/sprites/Fondo5Nieve.png")
+loadSprite("espacio", "/sprites/Fondo6Espacio.png")
+loadSprite("café", "/sprites/airadventurelevel1.png")
+loadSprite("campo", "/sprites/airadventurelevel2.png")
+loadSprite("nublado", "/sprites/airadventurelevel3.png")
+loadSprite("mar2", "/sprites/fondoMar.png")
+loadSprite("anaranjado", "/sprites/Anaranjado1.png")
 
 console.log(questions);
 let currentQuestionIndex = 0;
@@ -160,27 +173,28 @@ const MOVE_SPEED = 480
 const FALL_DEATH = 2400
 
 const LEVELS = [
+
 	[   
 		
 		"                                                ",
-		"           $   $($  $                           ",
+		"j           $   $($  $                           ",
 		"                            q + q      ($a       ",
 		"                            ¬¬¬¬¬    {¬¬¬¬      ",
 		"            [~~~~~~~]                |          ",
 		"          ¬¬        ¬¬    $          |          ",
-		"     ( q                  $          |          ",
+		"     ( q                 $          |          ",
 		"    {¬¬¬                  $         v}          ",
 		"    |                  (  $         ¬¬          ",
 		"    |     $$           °  $                ($$  ",
-		"    |     ¬¬¬          °u $       $        ¬¬¬  ",
+		"    |     ¬¬¬         °u $       $        ¬¬¬  ",
 		"    |                  °  $                     ",
 		"    |                  °  $                     ",
-		" a  }   ^^  vv   r  >  °  (v  av    r     g     r",
+		"  a }   ^^  vv   r  >  °  (v  av    r     g     r",
 		"¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬    ¬¬¬¬¬¬¬¬¬¬¬¬¬",
 		
 	],
     [  
-    "                c           ",  
+    " w              c           ",  
     "                            ",                                    
     "    c              c        ",
     "           6             o  ",
@@ -191,7 +205,7 @@ const LEVELS = [
     "___________________    444s4",
 ],
 [
-    "£                              £",
+    "£   ñ                          £",
     "£                              £",
     "£                              £",
     "£                              £",
@@ -202,8 +216,8 @@ const LEVELS = [
     "55555555555555555555555555555555",
 ],
 [
-    "     0      o",
-    "    --   3   ",
+    "      0     o",
+    "h    --   3  ",
     "        $$   ",
     "  %    ===   ",
     "             ",
@@ -211,7 +225,7 @@ const LEVELS = [
     " ============",
 ],
 	[
-		"                          $",
+		"  /                       $",
 		"                          $",
 		"                          $",
 		"                          $",
@@ -228,7 +242,7 @@ const LEVELS = [
 		"      $    $    $    $     $",
 		"                            ",
 		"                            ",
-		"                            ",
+		"  ,                         ",
 		"                            ",
 		"                            ",
 		"  ^^^^>^^^^>^^^^>^^^^>^^^^^@",
@@ -296,18 +310,16 @@ const levelConf = {
 		"r": () => [sprite("tree-f2"),area({ scale: 0.6 }), scale(0.5), pos(0,3), static, anchor("bot"),hide, 'platform'],
 		"u": () => [sprite("rama"), pos(-4,15), anchor("bot"),hide,],
 		"v": () => [sprite("plant"),  scale(0.4), pos(0, 8), anchor("bot"),hide,],
-		// "w":
-		// "h":
-		// "j":
-		// "l":
-		// "z":
-		// "i":
-		// "ñ":
-		// ",":
+		"w": () => [sprite("montaña"), anchor("bot"), pos(800, 1100), scale(2)],
+		"h": () => [sprite("mar"), anchor("bot"), pos(800, 1100), scale(2)],
+		"j": () => [sprite("bosque"), anchor("bot"), pos(800, 1100), scale(2)],
+		"l": () => [sprite("orange"), anchor("bot"), pos(800, 1100), scale(2)],
+		"/": () => [sprite("nieve"), anchor("bot"), pos(800, 1100), scale(1.8)],
+		"ñ": () => [sprite("espacio"), anchor("bot"), pos(800, 1100), scale(2)],
+		",": () => [sprite("anaranjado"), anchor("bot"), pos(800, 1100), scale(3),]
 		// ";":
 		// ":": 
 		// "¨":
-		// "/":
 		// "?":
 		// "¿":
 		// "¡":
