@@ -2,36 +2,6 @@ kaboom({
 	// background: [141, 183, 255],
 })
 
-async function init() {
-	kaboom();
-	let bgImage = await loadSprite("background", "/Pics/Fondo6Nieve.png");
-  
-	let background = add([
-	  sprite("background"),
-	  // Make the background centered on the screen
-	  pos(width() / 2, height() / 2),
-	  // Allow the background to be scaled
-	  scale(1),
-	  // Keep the background position fixed even when the camera moves
-	  fixed()
-	]);
-	// Scale the background to cover the screen
-	background.scaleTo(Math.max(
-	  width() / bgImage.tex.width,
-	  height() / bgImage.tex.height
-	));
-  }
-  
-  init();
-  
-
-
-// AGREGADO PARA FONDOS
-const theBackground = add([
-	sprite("background"),
-	z(-9999)
-]);
-
 // load assets platformer, funciona con live server, no path
 loadSprite("bigyoshi", "/examples/sprites/YOSHI.png")
 loadSprite("bean", "/sprites/bean.png") 
@@ -101,23 +71,6 @@ loadSprite("tree-f2", "/sprites/tree-f2.png" )
 loadSprite("cueva", "/sprites/cueva.png" )
 loadSprite("rama", "/sprites/rama.png" )
 loadSprite("plant", "/sprites/plant.png" )
-
-
-
-
-// Fondos
-loadRoot("/Pics");
-loadSprite("bosque", "Fondo1Bosque.png")
-loadSprite("montaña", "Fondo2Montaña.png")
-loadSprite("Espacio", "Fondo3Espacio.png")
-loadSprite("Mar", "Fondo4Mar.png")
-loadSprite("Orange", "Fondo5Orange.png")
-loadSprite("Nieve", "Fondo6Nieve.png")
-
-
-
-
-
 
 console.log(questions);
 let currentQuestionIndex = 0;
@@ -205,15 +158,6 @@ function big() {
 const JUMP_FORCE = 1320
 const MOVE_SPEED = 480
 const FALL_DEATH = 2400
-
-
-// AGREGADO PARA FONDO
-function main() {
-	const theBackground = add([
-		sprite("background"),
-		z(-9999)
-	]);
-}
 
 const LEVELS = [
 	[   
