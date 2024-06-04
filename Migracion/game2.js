@@ -89,6 +89,13 @@ loadSprite("fondo", "/sprites/fondo.jpg" ),
 // loadSprite("negro", "/sprites/negro.jpeg" )
 
 
+// FONDOS
+loadSprite("montaña", "/sprites/Fondo1Montaña.png"),
+loadSprite("mar", "/sprites/Fondo2Mar.png"),
+loadSprite("bosque", "/sprites/Fondo3Bosque.png"),
+loadSprite("nieve", "/sprites/Fondo5Nieve.png"),
+loadSprite("espacio", "/sprites/Fondo6Espacio.png"),
+loadSprite("anaranjado", "/sprites/Anaranjado1.png")
 
 
 
@@ -220,7 +227,7 @@ const LEVELS = [
 	[   
 		
 		"                                                ",
-		"           $   $($  $                           ",
+		"¿          $   $($  $                           ",
 		"                            q + q      ($a       ",
 		"                            ¬¬¬¬¬    {¬¬¬¬      ",
 		"            [~~~~~~~]                |          ",
@@ -237,7 +244,7 @@ const LEVELS = [
 		
 	],
     [  
-    "                c           ",  
+    " /              c           ",  
     "                            ",                                    
     "    c              c        ",
     "           6             o  ",
@@ -248,7 +255,7 @@ const LEVELS = [
     "___________________    444s4",
 ],
 [
-    "£                              £",
+    "£  .                           £",
     "£                              £",
     "£                              £",
     "£                              £",
@@ -260,7 +267,7 @@ const LEVELS = [
 ],
 [
     "     0      o",
-    "    --   3   ",
+    "?   --   3   ",
     "        $$   ",
     "  %    ===   ",
     "             ",
@@ -268,7 +275,7 @@ const LEVELS = [
     " ============",
 ],
 	[
-		"                          $",
+		"  ¡                       $",
 		"                          $",
 		"                          $",
 		"                          $",
@@ -285,7 +292,7 @@ const LEVELS = [
 		"      $    $    $    $     $",
 		"                            ",
 		"                            ",
-		"                            ",
+		"   `                        ",
 		"                            ",
 		"                            ",
 		"  ^^^^>^^^^>^^^^>^^^^>^^^^^@",
@@ -364,12 +371,12 @@ const levelConf = {
 		"w": () => [sprite("fondo"), anchor("bot"), pos(18,260),   scale(1), hide,],
 		"z": () => [sprite("ice-tree2"),area(), pos(0, 0),  scale(1), anchor("bot"),hide, ],
 		"¨": () => [sprite("snow-man"),area(), scale(0.3), pos(0,15), anchor("bot"),hide, ],
-		// "/":
-		// "?":
-		// "¿":
-		// "¡":
-		// ".": 
-		// "`":
+		"/": () => [sprite("montaña"), anchor("bot"), pos(1500, 1500), scale(2)],
+		"?": () => [sprite("mar"), anchor("bot"), pos(800, 1100), scale(2)],
+		"¿": () => [sprite("bosque"), anchor("bot"), pos(1100, 1100), scale(2)],
+		"¡": () => [sprite("nieve"), anchor("bot"), pos(800, 1100), scale(1.8)],
+		".": () => [sprite("espacio"), anchor("bot"), pos(800, 1100), scale(2)],
+		"`": () => [sprite("anaranjado"), anchor("bot"), pos(800, 1100), scale(3),]
 		// "&":
 		// "<":
 		
