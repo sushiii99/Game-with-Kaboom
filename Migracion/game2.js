@@ -1,5 +1,6 @@
 kaboom({
-	background: [141, 183, 255],
+	// background: [141, 183, 255],
+	background: [0, 0, 0],
 })
 
 
@@ -72,7 +73,20 @@ loadSprite("tree-f2", "/sprites/tree-f2.png" )
 loadSprite("cueva", "/sprites/cueva.png" )
 loadSprite("rama", "/sprites/rama.png" )
 loadSprite("plant", "/sprites/plant.png" )
-
+// sprites hielo
+loadSprite("ice-thin", "/sprites/ice1.png" )
+// loadSprite("ice", "/sprites/ice.png" )
+loadSprite("ice2", "/sprites/ice2.png" )
+loadSprite("ice-tierra", "/sprites/ice3.png" )
+loadSprite("ice-blanco", "/sprites/ice-blanco.jpg" )
+loadSprite("casa", "/sprites/casa.png" )
+loadSprite("quarzo-celeste", "/sprites/quarzo-celeste.png" )
+loadSprite("quarzo-rosa", "/sprites/quarzo-rosa.png" )
+loadSprite("ice-tree", "/sprites/ice-tree.png")
+loadSprite("ice-tree2", "/sprites/ice-tree2.png")
+loadSprite("snow-man", "/sprites/snow-man.png")
+loadSprite("fondo", "/sprites/fondo.jpg" ), 
+// loadSprite("negro", "/sprites/negro.jpeg" )
 
 
 
@@ -167,6 +181,42 @@ const MOVE_SPEED = 480
 const FALL_DEATH = 2400
 
 const LEVELS = [
+	
+
+	[   
+		
+		"ñ ñ                                               ",
+		"ñ ñ                                               ",
+		"ñ ñ                                               ",
+		"ñ ñ          $           (                        ",
+	    "ñ ñ          $          hh      $                 ",
+		"ñ ñ          $                   $                ",
+		"ñ ñ          $                    $               ",
+		"ñ ñ          $     h              $               ",
+		"ñ ñ  $z$           ñ              $               ",
+		"ñ ñ hhhhh         hñ                              ",
+		"ñ ñ               ññh                             ",
+		"ñ ñ              hñññ                             ",
+		"ñ ñ   (   {  i > ññññ ¨  i   >  z       ¨i    : ¨ ",
+		"ñ ñjjjjjjj|jjjjjjññññjjjjjjjjjjjjjjjjj{jjjjjjjjjjj",
+		"ñ ñ       |       ñ$$$$$$             |           ",
+		"ñ ñ   ($  |     $ ñ$$($$$             |           ",
+		"ñ ñ   ll  |       ñ$$$$$$             |           ",
+		"ñ ñ       } ${  ¨ ñññññññ             } ;         ",
+		"ñ ñ     $ññññ|ñññññ                   lll{        ",
+		"ñ ñ    ;ññ   |              ll           |        ",
+		"ñ ñ,,,ññ     |                           |        ",
+	    "ñ ñññññ      |                           |  ,$$$, ",
+		"ñ            }  [~~~~](                  |  lllll ",
+		"ñ     ( ¨    lll     ll                  |        ",
+		"ñ     lll      ;                         |    $   ",
+		"ñ           $hhh!                        |        ",
+		"ñ   ;$ g  $ hñññh    $ ( $        h,g , >}    (  ,",
+		"ñhhhhhhhhhhhñññññ,,,,hhhhhhh;    ;ññhhhhhhhhhhhhhh",
+		"ñññññññññññññññññññññññññññññ > >ñññññññññññññññññ",
+		"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
+
+	],
 	[   
 		
 		"                                                ",
@@ -182,7 +232,7 @@ const LEVELS = [
 		"    |     ¬¬¬          °u $       $        ¬¬¬  ",
 		"    |                  °  $                     ",
 		"    |                  °  $                     ",
-		" a  }   ^^  vv   r  >  °  (v  av    r     g     r",
+		" a  }   ^^  vv   r  >  °  (v  av    r   g g    r",
 		"¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬    ¬¬¬¬¬¬¬¬¬¬¬¬¬",
 		
 	],
@@ -253,7 +303,7 @@ const levelConf = {
 		"=": () => [sprite("grass"), area(), static, anchor("bot"), hide,"platform",],
 		"-": () => [sprite("steel"), area(), static, hide, anchor("bot"),],
 		"0": () => [sprite("bag"), area(), static, hide, anchor("bot"),],
-		"$": () => [sprite("coin"),area(),pos(0, -9),anchor("bot"),hide,"coin",],
+		"$": () => [sprite("coin"),area(),pos(0, -15),anchor("bot"),hide,"coin",],
 		"%": () => [sprite("prize"),area(),static,anchor("bot"),hide,"prize",],
 		"^": () => [sprite("spike"),area(),static,anchor("bot"),hide,"danger",],
 		"#": () => [sprite("apple"),area(),anchor("bot"),body(),hide,"apple",],
@@ -267,7 +317,7 @@ const levelConf = {
         "c": () => [sprite("cloud"),area(), scale(2), pos(0, -9),anchor("bot"),hide,],
         "7": () => [sprite("lightening"),area(),pos(0, -9),anchor("bot"),hide,],
         "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
-        "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
+        "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"dangerous",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
         "k": () => [sprite("key"),area(),pos(0, -9),anchor("bot"),hide,],
         "1": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"coin-surprise",],
@@ -283,19 +333,19 @@ const levelConf = {
         "b": () => [sprite("blue-evil-shroom"),area({ scale: 0.8 }), scale(1.6), anchor("bot"),body(),patrol(),hide,"dangerous",],
         "y": () => [sprite("mushm"),area(),  scale(3.2), anchor("bot"),body(),patrol(),hide,],
 		"i": () => [sprite("linternas"),area(),anchor("bot"),hide,],
-        "!": () => [sprite("sign"),area(), scale(0.15),anchor("bot"),hide,],
+        "!": () => [sprite("sign"),area(), scale(0.15), pos(0, 10), anchor("bot"),hide,],
 		"(": () => [sprite("cofre"),area(),pos(0,8), static,anchor("bot"),hide,"cofre",],
 		"_":  () => [sprite("pink-grass"), area(), scale(0.042), static, anchor("bot"), hide,"platform",],
         "6": () => [sprite("pink-tree"),area(), scale(0.4), pos(0,3), anchor("bot"),hide,],
 		"8": () => [sprite("purple-heart"),area(), scale(0.1), anchor("bot"), body(), hide, "apple"],
 		")": () => [sprite("tree2"),area(), pos(0,15), anchor("bot"),hide,],
 		"¬": () => [sprite("grass-forest"), area(), scale(0.18), pos(0,-25), static, anchor("bot"), hide,"platform",],
-		"[": () => [sprite("bridge1"), area({ scale: 0.18 }), pos(-20,28), scale(0.3), static, anchor("bot"), hide, "bridge"],
-		"~": () => [sprite("bridge2"), area({ scale: 0.3 }), pos(-20,30), scale(0.3) , static,  anchor("bot"), hide, "bridge"],
-		"]": () => [sprite("bridge3"), area({ scale: 0.1 }), pos(-20,12), scale(0.3), static, anchor("bot"), hide, "bridge"],
-		"{": () => [sprite("ladder1"), area(), scale(0.35), anchor("bot"), hide,"ladder"],
-		"|": () => [sprite("ladder2"), area(), scale(0.2), anchor("bot"), hide,"ladder"],
-		"}": () => [sprite("ladder3"), area(), scale(0.2), pos(0,5), anchor("bot"), hide,"ladder"],
+		"[": () => [sprite("bridge1"), area({ scale: 0.18 }), pos(-20,28), scale(0.3), static, anchor("bot"), hide,],
+		"~": () => [sprite("bridge2"), area({ scale: 0.3 }), pos(-20,30), scale(0.3) , static,  anchor("bot"), hide, ],
+		"]": () => [sprite("bridge3"), area({ scale: 0.1 }), pos(-20,12), scale(0.3), static, anchor("bot"), hide,],
+		"{": () => [sprite("ladder1"), area(), scale(0.27),pos(0,-8), anchor("bot"), hide,"ladder"],
+		"|": () => [sprite("ladder2"), area(), scale(0.14), anchor("bot"), hide,"ladder"],
+		"}": () => [sprite("ladder3"), area(), scale(0.14), pos(0,10), anchor("bot"), hide,"ladder"],
 		"°":  () => [sprite("rock-block"), area(), scale(0.18), static, anchor("bot"), hide,"platform",],
 		"+": () => [sprite("cueva"),area({ scale: 0.3 }), scale(2), anchor("bot"),pos(0, 15),hide,"portal",],
 		"a": () => [sprite("tree-f"),area(), scale(2.2), pos(0,3), anchor("bot"),hide, ],
@@ -303,17 +353,17 @@ const levelConf = {
 		"r": () => [sprite("tree-f2"),area({ scale: 0.6 }), scale(0.5), pos(0,3), static, anchor("bot"),hide, 'platform'],
 		"u": () => [sprite("rama"), pos(-4,15), anchor("bot"),hide,],
 		"v": () => [sprite("plant"),  scale(0.4), pos(0, 8), anchor("bot"),hide,],
-		// "w":
-		// "h":
-		// "j":
-		// "l":
-		// "z":
-		// "i":
-		// "ñ":
-		// ",":
-		// ";":
-		// ":": 
-		// "¨":
+		"l": () => [sprite("ice-thin"),  area({ scale: 0.7 }), pos(0, -20), scale(0.3), static, anchor("bot"), hide,],
+		"h":  () => [sprite("ice2"),  area({ scale: 0.9 }),  pos(0, 5), scale(1.2), static, anchor("bot"), hide,],
+		"j":  () => [sprite("ice-tierra"),  area({ scale: 0.8 }), pos(0, 0), scale(0.8), static, anchor("bot"), hide,],
+		"i":  () => [sprite("ice-tree"),area(), scale(0.5), pos(0, 0), anchor("bot"),hide, ],
+		"ñ": () => [sprite("ice-blanco"),  area({ scale: 0.8 }), pos(0, -18), scale(4.6), static, anchor("bot"), hide,],
+		",": () => [sprite("quarzo-rosa"),area({ scale: 0.4 }), scale(0.15),  pos(0,0),  static,anchor("bot"),hide,"danger",],
+		";": () => [sprite("quarzo-celeste"),area(), scale(0.4), pos(0,10), anchor("bot"),hide,],
+		":":  () => [sprite("casa"),area({ scale: 0.2 }), scale(1.1), anchor("bot"),pos(-100, 20),hide,"portal",],
+		"w": () => [sprite("fondo"), anchor("bot"), pos(18,260),   scale(1), hide,],
+		"z": () => [sprite("ice-tree2"),area(), pos(0, 0),  scale(1), anchor("bot"),hide, ],
+		"¨": () => [sprite("snow-man"),area(), scale(0.3), pos(0,15), anchor("bot"),hide, ],
 		// "/":
 		// "?":
 		// "¿":
@@ -421,13 +471,7 @@ scene("game", ({ levelId, coins, score } = { levelId: 0, coins: 0, score: 0}) =>
 		}
 	})
 
-	// player.onCollide("bridge"), () => {
-
-
-
-	// }
-
-
+	
 
 	
 
