@@ -82,10 +82,10 @@ loadSprite("espacio", "/sprites/Fondo6Espacio.png")
 loadSprite("café", "/sprites/airadventurelevel1.png")
 loadSprite("campo", "/sprites/airadventurelevel2.png")
 loadSprite("nublado", "/sprites/airadventurelevel3.png")
-loadSprite("mar2", "/sprites/fondoMar.png")
 loadSprite("anaranjado", "/sprites/Anaranjado1.png")
 loadSprite("morado", "/sprites/morado.png")
 loadSprite("bosqueHD", "/sprites/bosqueHD.png")
+
 
 console.log(questions);
 let currentQuestionIndex = 0;
@@ -312,9 +312,9 @@ const levelConf = {
 		"r": () => [sprite("tree-f2"),area({ scale: 0.6 }), scale(0.5), pos(0,3), static, anchor("bot"),hide, 'platform'],
 		"u": () => [sprite("rama"), pos(-4,15), anchor("bot"),hide,],
 		"v": () => [sprite("plant"),  scale(0.4), pos(0, 8), anchor("bot"),hide,],
-		"w": () => [sprite("montaña"), anchor("bot"), pos(800, 1500), scale(2)],
+		"w": () => [sprite("montaña"), anchor("bot"), pos(1500, 1500), scale(2)],
 		"h": () => [sprite("mar"), anchor("bot"), pos(800, 1100), scale(2)],
-		"j": () => [sprite("bosque"), anchor("bot"), pos(800, 1100), scale(2)],
+		"j": () => [sprite("bosque"), anchor("bot"), pos(1100, 1100), scale(2)],
 		"/": () => [sprite("nieve"), anchor("bot"), pos(800, 1100), scale(1.8)],
 		"ñ": () => [sprite("espacio"), anchor("bot"), pos(800, 1100), scale(2)],
 		",": () => [sprite("anaranjado"), anchor("bot"), pos(800, 1100), scale(3),]
