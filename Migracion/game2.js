@@ -456,7 +456,32 @@ function checkAnswer(answer) {
         player.move(MOVE_SPEED, 0);
     });
 }
+// --------------------------------------------------------------------------
+let haskey = false
 
+
+const key = add([
+	sprite ('key'),
+	pos (100, 200),
+	'key',
+	
+]);
+
+player.onCollide('key',(k) => { 
+	destroy(k);
+	alert ('tienes la llave');
+	player.haskey = true;
+}) ;
+
+player.onCollide('door', (d) =>  {
+	if (player.haskey){  
+		destroy(d);
+		go ('LEVELS');
+	}else{
+		alert('Necesitas la llave')
+	}
+});
+// ---------------------------------------------------------------------------
  // Eventos de clic para los botones de respuesta
 document.getElementById('optionA').addEventListener('click', () => checkAnswer('a'));
 document.getElementById('optionB').addEventListener('click', () => checkAnswer('b'));
