@@ -4,7 +4,7 @@ kaboom({
 
 
 // load assets platformer, funciona con live server, no path
-loadSprite("bigyoshi", "/examples/sprites/YOSHI.png")
+// loadSprite("bigyoshi", "/examples/sprites/YOSHI.png")
 loadSprite("bean", "/sprites/bean.png") 
 loadSprite("bag", "/sprites/bag.png")
 loadSprite("ghosty", "/sprites/ghosty.png")
@@ -15,8 +15,9 @@ loadSprite("prize", "/sprites/jumpy.png")
 loadSprite("apple", "/sprites/apple.png")
 loadSprite("portal", "/sprites/portal.png")
 loadSprite("coin", "/sprites/coin.png")
-loadSound("coin", "/examples/sounds/score.mp3")
-loadSound("powerup", "/examples/sounds/powerup.mp3")
+loadSound("backgroundMusic", "Musica/background.mp3")
+loadSound("coinSound", "Musica/coin.mp3")
+loadSound("powerup", "Musica/big.mp3")
 loadSound("blip", "/examples/sounds/blip.mp3")
 loadSound("hit", "/examples/sounds/hit.mp3")
 loadSound("portal", "/examples/sounds/portal.mp3")
@@ -58,9 +59,15 @@ loadSprite("pink-tree", "/sprites/pink-tree.png")
 loadSprite("purple-heart", "/sprites/purple-heart.png")
 loadSprite("tree2", "/sprites/tree2.png")
 
+const music = play("backgroundMusic", { loop:true });
+music.volume = 0.5;
 
-
-
+function playSound(sound) {
+	play(sound, {
+        detune: coinPitch,
+    });
+    coinPitch += 100;
+}
 
 
 console.log(questions);
@@ -157,12 +164,12 @@ const LEVELS = [
     "    c              c        ",
     "           6             o  ",
     "   1   1*_1_                ",
-    "                            ",
+    "              k             ",
     "                  (         ",
     "  f )  f  e   e f _    ! i i",
     "___________________    444s4",
 ],
-[     
+[
     "£                              £",
     "£                              £",
     "£                              £",
@@ -195,9 +202,9 @@ const LEVELS = [
 		"       ^^      = >    =   @",
 		"===========================",
 	],
-	[   
-		"      $    $  > $    $     $",
-		"      $    $ == $    $     $",
+	[
+		"      $    $    $    $     $",
+		"      $    $    $    $     $",
 		"                            ",
 		"                            ",
 		"                            ",
@@ -234,7 +241,7 @@ const levelConf = {
         "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
         "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
-        "k": () => [sprite("key"),area( ),pos(0, -9),anchor("bot"),hide,"key"],
+        "k": () => [sprite("key"),area(),pos(0, -9),anchor("bot"),hide,],
         "1": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"coin-surprise",],
 		"*": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"prize",],
         "2": () => [sprite("unboxed"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
@@ -450,34 +457,6 @@ function checkAnswer(answer) {
     });
 }
 
-// --------------------------------------------------------------------------
-let haskey = false
-
-
-const key = add([
-	sprite ('key'),
-	pos (100, 200),
-	'key',
-	
-]);
-
-player.onCollide('key',(k) => { 
-	destroy(k);
-	alert ('tienes la llave');
-	player.haskey = true;
-}) ;
-
-player.onCollide('door', (d) =>  {
-	if (player.haskey){  
-		destroy(d);
-		go ('LEVELS');
-	}else{
-		alert('Necesitas la llave')
-	}
-});
-// ---------------------------------------------------------------------------
-
-
  // Eventos de clic para los botones de respuesta
 document.getElementById('optionA').addEventListener('click', () => checkAnswer('a'));
 document.getElementById('optionB').addEventListener('click', () => checkAnswer('b'));
@@ -501,14 +480,15 @@ document.getElementById('optionD').addEventListener('click', () => checkAnswer('
 	})
 
 	player.onCollide("coin", (c) => {
-		destroy(c)
+		destroy(c);
 		play("coin", {
 			detune: coinPitch,
 		})
 		coinPitch += 100
 		coins += 1
-		coinsLabel.text = "Monedas: " + coins
-	})
+		coinsLabel.text = "Monedas: " + coins;
+		player.move(player.pos.x, player.pos.y +10);
+	});
 
 	const coinsLabel = add([
 		text("Monedas: ",  coins),
