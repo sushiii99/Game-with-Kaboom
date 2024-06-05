@@ -162,7 +162,7 @@ const LEVELS = [
     "  f )  f  e   e f _    ! i i",
     "___________________    444s4",
 ],
-[
+[     
     "£                              £",
     "£                              £",
     "£                              £",
@@ -195,9 +195,9 @@ const LEVELS = [
 		"       ^^      = >    =   @",
 		"===========================",
 	],
-	[
-		"      $    $    $    $     $",
-		"      $    $    $    $     $",
+	[   
+		"      $    $  > $    $     $",
+		"      $    $ == $    $     $",
 		"                            ",
 		"                            ",
 		"                            ",
@@ -234,7 +234,7 @@ const levelConf = {
         "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
         "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"enemy",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
-        "k": () => [sprite("key"),area(),pos(0, -9),anchor("bot"),hide,],
+        "k": () => [sprite("key"),area( ),pos(0, -9),anchor("bot"),hide,"key"],
         "1": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"coin-surprise",],
 		"*": () => [sprite("surprise"), area(),  scale(3.2), static, anchor("bot"), hide,"prize",],
         "2": () => [sprite("unboxed"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
@@ -449,6 +449,34 @@ function checkAnswer(answer) {
         player.move(MOVE_SPEED, 0);
     });
 }
+
+// --------------------------------------------------------------------------
+let haskey = false
+
+
+const key = add([
+	sprite ('key'),
+	pos (100, 200),
+	'key',
+	
+]);
+
+player.onCollide('key',(k) => { 
+	destroy(k);
+	alert ('tienes la llave');
+	player.haskey = true;
+}) ;
+
+player.onCollide('door', (d) =>  {
+	if (player.haskey){  
+		destroy(d);
+		go ('LEVELS');
+	}else{
+		alert('Necesitas la llave')
+	}
+});
+// ---------------------------------------------------------------------------
+
 
  // Eventos de clic para los botones de respuesta
 document.getElementById('optionA').addEventListener('click', () => checkAnswer('a'));
