@@ -5,8 +5,6 @@ kaboom({
 
 
 // load assets platformer, funciona con live server, no path
-loadSprite("bigyoshi", "/examples/sprites/YOSHI.png")
-loadSprite("bean", "/sprites/bean.png") 
 loadSprite("bag", "/sprites/bag.png")
 loadSprite("ghosty", "/sprites/ghosty.png")
 loadSprite("spike", "/sprites/spike.png")
@@ -145,6 +143,14 @@ function patrol(speed = 60, dir = -1) {
 	}
 }
 
+// define some constants
+const JUMP_FORCE = 1320
+const MOVE_SPEED = 480
+const FALL_DEATH = 2400
+const BIG_JUMP_FORCE = 1600
+let CURRENT_JUMP_FORCE = JUMP_FORCE
+
+
 // custom component that makes stuff grow big
 function big() {
 	let timer = 0
@@ -161,6 +167,7 @@ function big() {
 				timer -= dt()
 				if (timer <= 0) {
 					this.smallify()
+					
 				}
 			}
 			this.scale = this.scale.lerp(vec2(destScale), dt() * 6)
@@ -173,27 +180,61 @@ function big() {
 			destScale = 1
 			timer = 0
 			isBig = false
+			CURRENT_JUMP_FORCE = JUMP_FORCE
 		},
 		biggify(time) {
 			destScale = 2
 			timer = time
 			isBig = true
+			CURRENT_JUMP_FORCE = BIG_JUMP_FORCE
 		},
 	}
 }
 
-// define some constants
-const JUMP_FORCE = 1320
-const MOVE_SPEED = 480
-const FALL_DEATH = 2400
 
 const LEVELS = [
+
+	[   "ñ ñjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj@jjjjjjjjjjj",
+		"ñ ñ               ñ$$$$$$             |           ",
+		"ñ ñ   ($        $ ñ$$($$$             |           ",
+		"ñ ñ   ll          ñ$$$$$$             |           ",
+		"ñ ñ         ${  ¨ ñññññññ             } ;         ",
+		"ñ ñ     $ññññ|ñññññ                   lll{        ",
+		"ñ ñ    ;ññ   |              ll           |        ",
+		"ñ ñ,,,ññ     |                           |        ",
+	    "ñ ñññññ      |                           |  ,$$$, ",
+		"ñ            }  [~~~~](                  |  lllll ",
+		"ñ     ( ¨    lll     ll                  |        ",
+		"ñ     lll      ;                         |    $   ",
+		"ñ           $hhh!                        |        ",
+		"ñ   ;$ g  $ hñññh    $ ( $        h,g , >}    (  ,",
+		"ñhhhhhhhhhhhñññññ,,,,hhhhhhh;    ;ññhhhhhhhhhhhhhh",
+		"ñññññññññññññññññññññññññññññ > >ñññññññññññññññññ",
+		"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
+	],
+
+	[   
+		
+		"                                                  ",
+		"             $           (                        ",
+	    "             $          hh      $                 ",
+		"             $                   $                ",
+		"             $                    $               ",
+		"             $     h              $               ",
+		"     $z$           ñ              $               ",
+		"    hhhhh         hñ                              ",
+		"                  ññh                             ",
+		"                 hñññ                             ",
+		"      (      i > ññññ ¨  i   >  z       ¨i    : ¨ ",
+		"jjjjjjjjjjjjjjjjjññññjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",
+		
+
+	],
+	
 	
 
 	// [   
 		
-	// 	"ñ ñ                                               ",
-	// 	"ñ ñ                                               ",
 	// 	"ñ ñ                                               ",
 	// 	"ñ ñ          $           (                        ",
 	//     "ñ ñ          $          hh      $                 ",
@@ -204,7 +245,7 @@ const LEVELS = [
 	// 	"ñ ñ hhhhh         hñ                              ",
 	// 	"ñ ñ               ññh                             ",
 	// 	"ñ ñ              hñññ                             ",
-	// 	"ñ ñ   (   {  i > ññññ ¨  i   >  z       ¨i    : ¨ ",
+	// 	"ñ ñ   (   {j i > ññññ ¨  i   >  z    j  ¨i    : ¨ ",
 	// 	"ñ ñjjjjjjj|jjjjjjññññjjjjjjjjjjjjjjjjj{jjjjjjjjjjj",
 	// 	"ñ ñ       |       ñ$$$$$$             |           ",
 	// 	"ñ ñ   ($  |     $ ñ$$($$$             |           ",
@@ -222,8 +263,8 @@ const LEVELS = [
 	// 	"ñhhhhhhhhhhhñññññ,,,,hhhhhhh;    ;ññhhhhhhhhhhhhhh",
 	// 	"ñññññññññññññññññññññññññññññ > >ñññññññññññññññññ",
 	// 	"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
-
 	// ],
+	
 	[   
 		
 		"                                                ",
@@ -322,7 +363,6 @@ const levelConf = {
         "f": () => [sprite("flower"), anchor("bot"),hide,],
         "m": () => [sprite("moon"),area(),pos(0, -9),anchor("bot"),hide,],
         "c": () => [sprite("cloud"),area(), scale(2), pos(0, -9),anchor("bot"),hide,],
-        "7": () => [sprite("lightening"),area(),pos(0, -9),anchor("bot"),hide,],
         "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
         "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"dangerous",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
@@ -360,11 +400,11 @@ const levelConf = {
 		"r": () => [sprite("tree-f2"),area({ scale: 0.6 }), scale(0.5), pos(0,3), static, anchor("bot"),hide, 'platform'],
 		"u": () => [sprite("rama"), pos(-4,15), anchor("bot"),hide,],
 		"v": () => [sprite("plant"),  scale(0.4), pos(0, 8), anchor("bot"),hide,],
-		"l": () => [sprite("ice-thin"),  area({ scale: 0.7 }), pos(0, -20), scale(0.3), static, anchor("bot"), hide,],
-		"h":  () => [sprite("ice2"),  area({ scale: 1.1 }),  pos(0, 5), scale(1.2), static, anchor("bot"), hide,],
+		"l": () => [sprite("ice-thin"),  area({ scale: 0.8 }), pos(0, -20), scale(0.3), static, anchor("bot"), hide,],
+		"h":  () => [sprite("ice2"),  area({ scale: 1 }),  pos(0, 5), scale(1.2), static, anchor("bot"), hide,],
 		"j":  () => [sprite("ice-tierra"),  area({ scale: 0.8 }), pos(0, 0), scale(0.8), static, anchor("bot"), hide,],
 		"i":  () => [sprite("ice-tree"),area(), scale(0.5), pos(0, 0), anchor("bot"),hide, ],
-		"ñ": () => [sprite("ice-blanco"),  area({ scale: 1.2 }), pos(0, -18), scale(4.6), static, anchor("bot"), hide,],
+		"ñ": () => [sprite("ice-blanco"),  area({ scale: 1 }), pos(0, -18), scale(4.6), static, anchor("bot"), hide,],
 		",": () => [sprite("quarzo-rosa"),area({ scale: 0.4 }), scale(0.15),  pos(0,0),  static,anchor("bot"),hide,"danger",],
 		";": () => [sprite("quarzo-celeste"),area(), scale(0.4), pos(0,10), anchor("bot"),hide,],
 		":":  () => [sprite("casa"),area({ scale: 0.2 }), scale(1.1), anchor("bot"),pos(-100, 20),hide,"portal",],
@@ -404,11 +444,7 @@ scene("game", ({ levelId, coins, score } = { levelId: 0, coins: 0, score: 0}) =>
 		anchor("bot"),
 	])
 
-	//NO FUNCIONA :c
-	// if (levelId === 1) {
-	// 	player.jump(200)
-	// } 
-
+	
 
 
 	// action() runs every frame
@@ -620,7 +656,7 @@ document.getElementById('optionD').addEventListener('click', () => checkAnswer('
 	function jump() {
 		// these 2 functions are provided by body() component
 		if (player.isGrounded()) {
-			player.jump(JUMP_FORCE)
+			player.jump(CURRENT_JUMP_FORCE)
 		}
 	}
 
