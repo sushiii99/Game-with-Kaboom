@@ -63,6 +63,6 @@ El juego se encuentra en la carpeta "migracion". La continuación del juego, don
 ## Demo del Proyecto
 
 
-![Watch the video](https://github.com/sushiii99/Game-with-Kaboom/blob/rama-susi/readMe/videoCortado.mp4)
+![Watch the video](https://github.com/sushiii99/Game-with-Kaboom/blob/rama-susi/readMe/videoCortado.gif)
 
 > **Nota**: El GIF puede tardar un poco en cargarse. Por favor, ten paciencia mientras se carga completamente.
