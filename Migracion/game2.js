@@ -98,7 +98,7 @@ loadSprite("anaranjado", "/sprites/Anaranjado1.png")
 
 
 
-console.log(questions);
+// console.log(questions);
 let currentQuestionIndex = 0;
 let questionVisible = false;
 
@@ -194,25 +194,27 @@ function big() {
 
 const LEVELS = [
 
-	[   "ñ ñjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj@jjjjjjjjjjj",
-		"ñ ñ               ñ$$$$$$             |           ",
-		"ñ ñ   ($        $ ñ$$($$$             |           ",
-		"ñ ñ   ll          ñ$$$$$$             |           ",
-		"ñ ñ         ${  ¨ ñññññññ             } ;         ",
-		"ñ ñ     $ññññ|ñññññ                   lll{        ",
-		"ñ ñ    ;ññ   |              ll           |        ",
-		"ñ ñ,,,ññ     |                           |        ",
-	    "ñ ñññññ      |                           |  ,$$$, ",
-		"ñ            }  [~~~~](                  |  lllll ",
-		"ñ     ( ¨    lll     ll                  |        ",
-		"ñ     lll      ;                         |    $   ",
-		"ñ           $hhh!                        |        ",
-		"ñ   ;$ g  $ hñññh    $ ( $        h,g , >}    (  ,",
-		"ñhhhhhhhhhhhñññññ,,,,hhhhhhh;    ;ññhhhhhhhhhhhhhh",
-		"ñññññññññññññññññññññññññññññ > >ñññññññññññññññññ",
-		"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
-	],
-
+	// // nivel nieve interior (subterraneo)
+	// [   "ñ ñjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj@jjjjjjjjjjj",
+	// 	"ñ ñ               ñ$$$$$$             |           ",
+	// 	"ñ ñ   ($        $ ñ$$($$$             |           ",
+	// 	"ñ ñ   ll          ñ$$$$$$             |           ",
+	// 	"ñ ñ         ${  ¨ ñññññññ             } ;         ",
+	// 	"ñ ñ     $ññññ|ñññññ                   lll{        ",
+	// 	"ñ ñ    ;ññ   |              ll           |        ",
+	// 	"ñ ñ,,,ññ     |                           |        ",
+	//     "ñ ñññññ      |                           |  ,$$$, ",
+	// 	"ñ            }  [~~~~](                  |  lllll ",
+	// 	"ñ     ( ¨    lll     ll                  |        ",
+	// 	"ñ     lll      ;                         |    $   ",
+	// 	"ñ           $hhh!                        |        ",
+	// 	"ñ   ;$ g  $ hñññh    $ ( $        h,g , >}    (  ,",
+	// 	"ñhhhhhhhhhhhñññññ,,,,hhhhhhh;    ;ññhhhhhhhhhhhhhh",
+	// 	"ñññññññññññññññññññññññññññññ > >ñññññññññññññññññ",
+	// 	"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
+	// ],
+    
+	// nivel nieve exterior
 	[   
 		
 		"                                                  ",
@@ -232,12 +234,12 @@ const LEVELS = [
 	],
 	
 	
-
+     // nivel nieve completo
 	// [   
 		
 	// 	"ñ ñ                                               ",
 	// 	"ñ ñ          $           (                        ",
-	//     "ñ ñ          $          hh      $                 ",
+	//  "ñ ñ          $          hh      $                 ",
 	// 	"ñ ñ          $                   $                ",
 	// 	"ñ ñ          $                    $               ",
 	// 	"ñ ñ          $     h              $               ",
@@ -254,7 +256,7 @@ const LEVELS = [
 	// 	"ñ ñ     $ññññ|ñññññ                   lll{        ",
 	// 	"ñ ñ    ;ññ   |              ll           |        ",
 	// 	"ñ ñ,,,ññ     |                           |        ",
-	//     "ñ ñññññ      |                           |  ,$$$, ",
+	//  "ñ ñññññ      |                           |  ,$$$, ",
 	// 	"ñ            }  [~~~~](                  |  lllll ",
 	// 	"ñ     ( ¨    lll     ll                  |        ",
 	// 	"ñ     lll      ;                         |    $   ",
@@ -265,6 +267,8 @@ const LEVELS = [
 	// 	"ññññññññññññññññññññññññññññññññññññññññññññññññññ",
 	// ],
 	
+
+	// nivel selva
 	[   
 		
 		"                                                ",
@@ -284,6 +288,8 @@ const LEVELS = [
 		"¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬    ¬¬¬¬¬¬¬¬¬¬¬¬¬",
 		
 	],
+
+	// nivel rosadito
     [  
     " /              c           ",  
     "                            ",                                    
@@ -295,6 +301,8 @@ const LEVELS = [
     "  f )  f  e   e f _    ! i i",
     "___________________    444s4",
 ],
+
+// nivel mario underground
 [
     "£  .                           £",
     "£                              £",
@@ -308,7 +316,7 @@ const LEVELS = [
 ],
 [
     "     0      o",
-    "?   --   3   ",
+    "?   ==   3   ",
     "        $$   ",
     "  %    ===   ",
     "             ",
@@ -328,6 +336,8 @@ const LEVELS = [
 		"       ^^      = >    =   @",
 		"===========================",
 	],
+
+	// nivel spikes, falta poner plataforma con pregunta al final
 	[
 		"      $    $    $    $     $",
 		"      $    $    $    $     $",
@@ -349,7 +359,7 @@ const levelConf = {
 	tileHeight: 64,
 	tiles: {
 		"=": () => [sprite("grass"), area(), static, anchor("bot"), hide,"platform",],
-		"-": () => [sprite("steel"), area(), static, hide, anchor("bot"),],
+		// "-": () => [sprite("steel"), area(), static, hide, anchor("bot"),],
 		"0": () => [sprite("bag"), area(), static, hide, anchor("bot"),],
 		"$": () => [sprite("coin"),area(),pos(0, -15),anchor("bot"),hide,"coin",],
 		"%": () => [sprite("prize"),area(),static,anchor("bot"),hide,"prize",],
@@ -361,9 +371,9 @@ const levelConf = {
         "s": () => [sprite("stairs"),area({ scale: 1.2 }),scale (1.4), pos(0, 5), anchor("bot"), hide, "stairs",],
         "3": () => [sprite("btfly"),area(),pos(0, -9),anchor("bot"),hide,],
         "f": () => [sprite("flower"), anchor("bot"),hide,],
-        "m": () => [sprite("moon"),area(),pos(0, -9),anchor("bot"),hide,],
+        // "m": () => [sprite("moon"),area(),pos(0, -9),anchor("bot"),hide,],
         "c": () => [sprite("cloud"),area(), scale(2), pos(0, -9),anchor("bot"),hide,],
-        "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
+        // "o": () => [sprite("sun"),area(),scale(2), pos(0, -9),anchor("bot"),hide,],
         "g": () => [sprite("gigagantrum"),area(),anchor("bot"),body(),patrol(),hide,"dangerous",],
         "d": () => [sprite("door"),area({ scale: 0.5 }),anchor("bot"),pos(0, -12),hide,"portal",],
         "k": () => [sprite("key"),area(),pos(0, -9),anchor("bot"),hide,],
@@ -374,7 +384,7 @@ const levelConf = {
         "5": () => [sprite("blue-brick"), area(), scale(1.6),static, anchor("bot"), hide,"platform",],
         "x": () => [sprite("blue-steel"), area({ scale: 0.8 }),  scale(1.6), static, anchor("bot"), hide,"platform",],
         "£": () => [sprite("blue-wall"), area(), scale(1.6),static, anchor("bot"), hide,"platform",],
-        "9": () => [sprite("red-wall"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
+        // "9": () => [sprite("red-wall"), area(),  scale(3.2), static, anchor("bot"), hide,"platform",],
         "t": () => [sprite("skeleton"),area(),anchor("bot"),body(),patrol(),hide,"danger",],
         "e": () => [sprite("evil-shroom"),area({ scale: 0.5 }), scale(3.2), anchor("bot"),body(),patrol(),hide,"dangerous",],
         "b": () => [sprite("blue-evil-shroom"),area({ scale: 0.8 }), scale(1.6), anchor("bot"),body(),patrol(),hide,"dangerous",],
@@ -418,6 +428,8 @@ const levelConf = {
 		".": () => [sprite("espacio"), anchor("bot"), pos(800, 1100), scale(2)],
 		"`": () => [sprite("anaranjado"), anchor("bot"), pos(800, 1100), scale(3),]
 		// "&":
+		// "<":
+		// "7":
 		// "<":
 		
 
