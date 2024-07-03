@@ -66,3 +66,6 @@ El juego se encuentra en la carpeta "migracion". La continuación del juego, don
 ![Watch the video](https://github.com/sushiii99/Game-with-Kaboom/blob/rama-susi/readMe/videoCortado.gif)
 
 > **Nota**: El GIF puede tardar un poco en cargarse. Por favor, ten paciencia mientras se carga completamente.
+
+## Contacto
+Para más información sobre el proyecto Mental Oasis, visita nuestra organización. [Mental Oasis](https://github.com/orgs/MentalOasis/people)
